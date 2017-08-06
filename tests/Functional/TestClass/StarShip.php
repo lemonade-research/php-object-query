@@ -30,13 +30,13 @@ class StarShip
      *
      * @param int $id
      * @param string $name
-     * @param float $height
+     * @param float $length
      */
-    public function __construct($id, $name, $height)
+    public function __construct($id, $name, $length)
     {
         $this->id = $id;
         $this->name = $name;
-        $this->length = $height;
+        $this->length = $length;
     }
 
     /**

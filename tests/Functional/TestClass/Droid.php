@@ -16,7 +16,7 @@ class Droid implements CharacterInterface
     private $id;
 
     /**
-     * @var CharacterInterface[]
+     * @var int[]
      */
     private $friends;
 
@@ -35,6 +35,25 @@ class Droid implements CharacterInterface
      */
     private $primaryFunction;
 
+    /**
+     * Droid constructor.
+     *
+     * @param int $id
+     * @param int[] $friends
+     * @param string $name
+     * @param Episode[] $appearsIn
+     * @param string $primaryFunction
+     */
+    public function __construct($id, array $friends, $name, array $appearsIn, $primaryFunction)
+    {
+        $this->id = $id;
+        $this->friends = $friends;
+        $this->name = $name;
+        $this->appearsIn = $appearsIn;
+        $this->primaryFunction = $primaryFunction;
+    }
+
+
     public function id()
     {
         return $this->id;
@@ -47,7 +66,7 @@ class Droid implements CharacterInterface
 
     public function friends()
     {
-        return $this->friends;
+        return array_map(function ($id) {return DataBuilder::getCharacter($id);}, $this->friends);
     }
 
     public function appearsIn()

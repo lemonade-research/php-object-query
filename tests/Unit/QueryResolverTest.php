@@ -12,5 +12,11 @@ use PHPUnit\Framework\TestCase;
  */
 class QueryResolverTest extends TestCase
 {
-
+    /**
+     * @test
+     */
+    public function itCanBeConstructed()
+    {
+        $this->markTestIncomplete();
+    }
 }

@@ -11,5 +11,7 @@ namespace ObjectQuery\Resolver;
  */
 interface ResolverInterface
 {
+    public function getProperty($graph, $name);
 
+    public function getRoot($name);
 }

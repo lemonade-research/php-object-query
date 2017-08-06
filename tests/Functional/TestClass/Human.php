@@ -27,7 +27,7 @@ class Human implements CharacterInterface
     private $name;
 
     /**
-     * @var CharacterInterface[]
+     * @var int[]
      */
     private $friends;
 
@@ -52,12 +52,12 @@ class Human implements CharacterInterface
      * @param float $height
      * @param int $id
      * @param string $name
-     * @param CharacterInterface[] $friends
+     * @param int[] $friends
      * @param Episode[] $appearsIn
      * @param int $mass
      * @param StarShip[] $starShips
      */
-    public function __construct($height, $id, $name, array $friends, array $appearsIn, $mass, array $starShips)
+    public function __construct($id, $name, $height, $mass, array $friends, array $appearsIn, array $starShips)
     {
         $this->height = $height;
         $this->id = $id;
@@ -80,7 +80,7 @@ class Human implements CharacterInterface
 
     public function friends()
     {
-        return $this->friends;
+        return array_map(function ($id) {return DataBuilder::getCharacter($id);}, $this->friends);
     }
 
     public function appearsIn()
