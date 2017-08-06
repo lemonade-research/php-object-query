@@ -3,6 +3,7 @@
 namespace ObjectQuery;
 
 use ObjectQuery\Query\SubQuery;
+use ObjectQuery\Query\Query;
 
 /**
  * Class QueryBuilder
@@ -42,5 +43,10 @@ class QueryBuilder implements QueryBuilderInterface
         $this->properties[$propertyName] = new SubQuery($subQuery, $propertyPath);
 
         return $this;
+    }
+
+    public static function create()
+    {
+        return new self();
     }
 }

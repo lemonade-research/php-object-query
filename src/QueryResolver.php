@@ -6,6 +6,7 @@ use ObjectQuery\Resolver\ResolverInterface;
 
 /**
  * Class QueryResolver
+ *
  * @package ObjectQuery
  * @author Christian Blank <christian@cubicl.de>
  */
