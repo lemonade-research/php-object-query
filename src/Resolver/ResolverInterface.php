@@ -1,7 +1,8 @@
 <?php
 
-
 namespace ObjectQuery\Resolver;
+
+use ObjectQuery\NodeInterface;
 
 /**
  * Interface ResolverInterface
@@ -11,7 +12,18 @@ namespace ObjectQuery\Resolver;
  */
 interface ResolverInterface
 {
-    public function getProperty($graph, $name);
+    /**
+     * @param NodeInterface $graph
+     * @param string $name
+     *
+     * @return NodeInterface
+     */
+    public function getProperty(NodeInterface $graph, string $name): NodeInterface;
 
-    public function getRoot($name);
+    /**
+     * @param string $name
+     *
+     * @return NodeInterface
+     */
+    public function getRoot(string $name): NodeInterface;
 }

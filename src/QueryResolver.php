@@ -2,6 +2,7 @@
 
 namespace ObjectQuery;
 
+use ObjectQuery\Node\CollectionNode;
 use ObjectQuery\Resolver\ResolverInterface;
 
 /**
@@ -17,6 +18,25 @@ class QueryResolver implements QueryResolverInterface
      */
     public function resolve(QueryInterface $query, ResolverInterface $rootResolver): array
     {
-        return [];
+        $result = [];
+
+        foreach ($query->getProperties() as $key => $propertyPath) {
+            $pathParts = explode('.', $propertyPath);
+            $rootData = $rootResolver->getRoot(array_shift($pathParts));
+
+            if ($rootData instanceof CollectionNode) {
+                foreach ($rootData->getCollection() as $entry) {
+                    $result[] = $this->value();
+                }
+            }
+        }
+        
+        return $result;
     }
+
+    private function value()
+    {
+    }
+
+
 }

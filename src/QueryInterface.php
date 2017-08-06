@@ -9,5 +9,8 @@ namespace ObjectQuery;
  */
 interface QueryInterface
 {
-
+    /**
+     * @return array
+     */
+    public function getProperties(): array;
 }
