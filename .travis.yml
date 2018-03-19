@@ -1,0 +1,25 @@
+addons:
+  code_climate:
+    repo_token:
+      secure: "kVlta1JTGAH4s9hrgoJBTMaSKSDg13W+1I7Ogwt6fqzb0eDsf8bW0u0Q2HwNbEOsd7oYNtf2cPMLOC+31ZDCOpzs0olAWLKLY6Q6vzriRNNEJ9vGGJq1lEPNVSmPIUKmFpfEe+62ZfmRo8lWkKbSUOqpkSe9L4MAZoEBmRR92YH9XEeKgviGw73bYfi5MFHJ8ZQ8aaB51R34D4jQrGNn1wA40fN2CWMha0NpzC/zoZ+EUlxENb8fjIbfUdolrmiK2DrfYQlxoonMjjI7drfgBY9lrVb6avlZukvs8kiCMmI3kHV2vhcuwKdReYmJcN4Rdo3giCB/u0JhG/onmzOvR3kMtWvpZpYItReWUy3x6YVvHll/LubUEa9gedGoEsHUJm52/31y7dUMWva+D4vkVevL9ntoFaxxZALAFB0UYHJLl41dOC0PkeRtACwwcfSmqmUBxN0P3TeBp1OdabfNhqMy4/I362XASfTt1GFMfNNXKf6ACPi3PKJ5GsDD+E9bPkyzmL13bajkF5pDxrBZrkwZS4NoJoFJ/6U1c5t7J60yBJARUKwPr5BiSGzddQ9hUHhMhLMIS2pTG0byTJWEKckydgxx+xMh31cq1/OB+m785OVU3C4VE1NhAX2pZztg7qfMPFh62kJ8UztmUZqxgLhWzEcqVd5uZ1kBBX8DUZQ="
+dist: trusty
+language: php
+matrix:
+  include:
+  - php: 7.0
+  - php: 7.1
+  - php: 7.2
+  - php: nightly
+  allow_failures:
+  - php: nightly
+  fast_finish: true
+before_install: 
+install:
+  - composer install
+script:
+  - vendor/bin/phpunit tests
+after_script:
+  - vendor/bin/test-reporter
+env:
+  global:
+    secure: SM4VjGr/4Gyzre1WqJ2CoYHg9hBjWSzF1gp1f2pWgoC/+na3EqvJVnr3xpZPFXGrqk/XgVCBH59Lrb5mfhd3IWmXN8Wu/EWjguAl5A0RPyVioJw4Hm8VvuhdY8s4crv5KFZwELKhRroeHh3t6seeVJgeClZOULYTSKZ4C65L1xOw4jBdHcShETlS0h/7WkgqkJUgcDyXBSwa5q1GfR5TU6Wfz8GUul3mgF0iFgkVDxXx5Kzi99hMa454W6blLGj53oPGnjmmHA0ZqirmBovrpd7jDQNgvIGj2Gpi1w6ApWeZgUzfEkVRspQWNoUV5MSdLWFWtm4UWsLtP7vSK5wUWB9xHk+rhCxnPLqzNLKvT2l0v6RzCbBrzkrlqphg5+8Ln79/+rYSUImQIuMEGhexu9h/SO+/XEJgLJ+1yhUduGFHdkSBRDCvLkfeQo4OxH3eW4LTTFlZ/P9iwaC4FY+MaPEa2C3n5EJr1NT6DVX0F8XuQcPIs6tnvaP07mkqoO5eHvqo3XY18of6SbKZhDTPuCoMD/3vF6ZyzPBo/iJ4Tb0rkjGNeUJCMKISzmF52DeHYw89Pk1CmoSCnR1si9+Ax5U/WGFLSGGA3J8pSfJO0RA5F9n4ekbwxVSHC8VQkHX9/Z6Od2lVE3xsO6/5QyhvyAYXIGn4J6MLFCnA9VuEiOw=
