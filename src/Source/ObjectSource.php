@@ -35,7 +35,6 @@ final class ObjectSource implements SourceInterface
         }
         $this->source = $source;
         $this->propertyAccessor = PropertyAccess::createPropertyAccessor();
-
     }
 
     /**
