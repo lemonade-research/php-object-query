@@ -1,13 +1,12 @@
 <?php
 
-
 namespace ObjectQuery\Test\Functional\TestClass;
 
 /**
  * Class Human
  *
  * @package ObjectQuery\Test\Functional\TestClass
- * @author Christian Blank <christian@cubicl.de>
+ * @author  Christian Blank <christian@cubicl.de>
  */
 class Human implements CharacterInterface
 {
@@ -49,12 +48,12 @@ class Human implements CharacterInterface
     /**
      * Human constructor.
      *
-     * @param float $height
-     * @param int $id
-     * @param string $name
-     * @param int[] $friends
-     * @param Episode[] $appearsIn
-     * @param int $mass
+     * @param float      $height
+     * @param int        $id
+     * @param string     $name
+     * @param int[]      $friends
+     * @param Episode[]  $appearsIn
+     * @param int        $mass
      * @param StarShip[] $starShips
      */
     public function __construct($id, $name, $height, $mass, array $friends, array $appearsIn, array $starShips)
@@ -108,6 +107,4 @@ class Human implements CharacterInterface
         return $this->starShips;
 
     }
-
-
 }

@@ -4,6 +4,8 @@ namespace ObjectQuery\Source;
 
 use ObjectQuery\SourceInterface;
 use ReflectionClass;
+use Symfony\Component\PropertyAccess\PropertyAccess;
+use Symfony\Component\PropertyAccess\PropertyAccessor;
 
 /**
  * Class ObjectSource
@@ -19,6 +21,11 @@ final class ObjectSource implements SourceInterface
     private $source;
 
     /**
+     * @var PropertyAccessor
+     */
+    private $propertyAccessor;
+
+    /**
      * @param object $source
      */
     public function __construct($source)
@@ -27,19 +34,18 @@ final class ObjectSource implements SourceInterface
             throw new \InvalidArgumentException('Source must be an object');
         }
         $this->source = $source;
+        $this->propertyAccessor = PropertyAccess::createPropertyAccessor();
+
     }
 
     /**
      * @param string $field
      *
      * @return bool
-     * @throws \ReflectionException
      */
     public function has(string $field): bool
     {
-        $x = new ReflectionClass($this->source);
-
-        return $x->hasProperty($field);
+        return $this->propertyAccessor->isReadable($this->source, $field);
     }
 
     /**
@@ -47,7 +53,6 @@ final class ObjectSource implements SourceInterface
      * @param mixed  $default
      *
      * @return SourceInterface|mixed
-     * @throws \ReflectionException
      */
     public function get(string $field, $default = null)
     {
@@ -55,11 +60,7 @@ final class ObjectSource implements SourceInterface
             return $default;
         }
 
-        $x = new ReflectionClass($this->source);
-        $property = $x->getProperty($field);
-        $property->setAccessible(true);
-
-        $value = $property->getValue($this->source);
+        $value = $this->propertyAccessor->getValue($this->source, $field);
 
         if (is_scalar($value)) {
             return $value;

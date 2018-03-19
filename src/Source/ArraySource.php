@@ -4,6 +4,8 @@ namespace ObjectQuery\Source;
 
 use ObjectQuery\SourceInterface;
 use ReflectionClass;
+use Symfony\Component\PropertyAccess\PropertyAccess;
+use Symfony\Component\PropertyAccess\PropertyAccessor;
 
 /**
  * Class ArraySource
@@ -19,6 +21,11 @@ final class ArraySource implements SourceInterface
     private $source;
 
     /**
+     * @var PropertyAccessor
+     */
+    private $propertyAccessor;
+
+    /**
      * @param array|\ArrayAccess $source
      */
     public function __construct($source)
@@ -27,6 +34,7 @@ final class ArraySource implements SourceInterface
             throw new \InvalidArgumentException('Source must be an array or implement ArrayAccess interface');
         }
         $this->source = $source;
+        $this->propertyAccessor = PropertyAccess::createPropertyAccessor();
     }
 
     /**
@@ -49,11 +57,7 @@ final class ArraySource implements SourceInterface
     {
         return array_map(
             function ($entry) use ($field) {
-                $x = new ReflectionClass($entry);
-                $property = $x->getProperty($field);
-                $property->setAccessible(true);
-
-                $value = $property->getValue($entry);
+                $value = $this->propertyAccessor->getValue($entry, $field);
 
                 if (is_scalar($value)) {
                     return $value;

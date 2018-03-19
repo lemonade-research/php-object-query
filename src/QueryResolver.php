@@ -70,8 +70,7 @@ final class QueryResolver implements QueryResolverInterface
         if (is_array($context) || $context instanceof \ArrayAccess) {
             return new ArraySource($context);
         }
-        if (is_object($context)) {
-            return new ObjectSource($context);
-        }
+
+        return new ObjectSource($context);
     }
 }
