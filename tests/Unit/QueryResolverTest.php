@@ -3,6 +3,7 @@
 namespace ObjectQuery\Test\Unit;
 
 use ObjectQuery\QueryResolver;
+use ObjectQuery\QueryResolverInterface;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -17,6 +18,8 @@ class QueryResolverTest extends TestCase
      */
     public function itCanBeConstructed()
     {
-        $this->markTestIncomplete();
+        $resolver = new QueryResolver();
+
+        $this->assertInstanceOf(QueryResolverInterface::class, $resolver);
     }
 }

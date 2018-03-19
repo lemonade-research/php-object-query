@@ -2,8 +2,6 @@
 
 namespace ObjectQuery;
 
-use ObjectQuery\Resolver\ResolverInterface;
-
 /**
  * Interface QueryResolverInterface
  * @package ObjectQuery
@@ -12,9 +10,10 @@ use ObjectQuery\Resolver\ResolverInterface;
 interface QueryResolverInterface
 {
     /**
-     * @param QueryInterface $query
-     * @param ResolverInterface $rootResolver
+     *
+     * @param array|object $context
+     *
      * @return array
      */
-    public function resolve(QueryInterface $query, ResolverInterface $rootResolver): array;
+    public function resolveArray($context): array;
 }

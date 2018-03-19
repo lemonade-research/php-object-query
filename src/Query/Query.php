@@ -2,36 +2,50 @@
 
 namespace ObjectQuery\Query;
 
+use ObjectQuery\DefinitionInterface;
 use ObjectQuery\QueryInterface;
 
 /**
  * Class Query
  *
  * @package ObjectQuery
- * @author Christian Blank <christian@cubicl.de>
+ * @author  Christian Blank <christian@cubicl.de>
  */
-class Query implements QueryInterface
+final class Query implements QueryInterface
 {
     /**
-     * @var array
+     * @var string
      */
-    private $properties;
+    private $name;
 
     /**
-     * Query constructor.
-     *
-     * @param array $properties
+     * @var DefinitionInterface
      */
-    public function __construct(array $properties)
+    private $definition;
+
+    /**
+     * @param string              $name
+     * @param DefinitionInterface $definition
+     */
+    public function __construct(string $name, DefinitionInterface $definition)
     {
-        $this->properties = $properties;
+        $this->name = $name;
+        $this->definition = $definition;
     }
 
     /**
-     * @return array
+     * @return string
      */
-    public function getProperties(): array
+    public function getName(): string
     {
-        return $this->properties;
+        return $this->name;
+    }
+
+    /**
+     * @return DefinitionInterface
+     */
+    public function getDefinition(): DefinitionInterface
+    {
+        return $this->definition;
     }
 }

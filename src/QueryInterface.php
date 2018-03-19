@@ -10,7 +10,12 @@ namespace ObjectQuery;
 interface QueryInterface
 {
     /**
-     * @return array
+     * @return string
      */
-    public function getProperties(): array;
+    public function getName(): string;
+
+    /**
+     * @return DefinitionInterface
+     */
+    public function getDefinition(): DefinitionInterface;
 }

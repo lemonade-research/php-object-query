@@ -2,8 +2,8 @@
 
 namespace ObjectQuery;
 
-use ObjectQuery\Node\CollectionNode;
-use ObjectQuery\Resolver\ResolverInterface;
+use ObjectQuery\Source\ArraySource;
+use ObjectQuery\Source\ObjectSource;
 
 /**
  * Class QueryResolver
@@ -11,32 +11,67 @@ use ObjectQuery\Resolver\ResolverInterface;
  * @package ObjectQuery
  * @author Christian Blank <christian@cubicl.de>
  */
-class QueryResolver implements QueryResolverInterface
+final class QueryResolver implements QueryResolverInterface
 {
     /**
-     * @inheritdoc
+     * @var QueryInterface[]
      */
-    public function resolve(QueryInterface $query, ResolverInterface $rootResolver): array
+    private $queries = [];
+
+    /**
+     * @param QueryInterface[] ...$queries
+     */
+    public function __construct(QueryInterface ...$queries)
     {
-        $result = [];
+        foreach ($queries as $query) {
+            $this->queries[$query->getName()] = $query;
+        }
+    }
 
-        foreach ($query->getProperties() as $key => $propertyPath) {
-            $pathParts = explode('.', $propertyPath);
-            $rootData = $rootResolver->getRoot(array_shift($pathParts));
+    /**
+     *
+     * @param array|object $context
+     *
+     * @return array
+     */
+    public function resolveArray($context): array
+    {
+        return $this->map($context);
+    }
 
-            if ($rootData instanceof CollectionNode) {
-                foreach ($rootData->getCollection() as $entry) {
-                    $result[] = $this->value();
-                }
+    /**
+     * @param array|object $context
+     *
+     * @return array
+     */
+    private function map($context): array
+    {
+        $context = $this->makeSource($context);
+        $target = [];
+
+        foreach ($this->queries as $query) {
+            try {
+                $target[$query->getName()] = $query->getDefinition()->getValue($context);
+            } catch (\Throwable $e) {
+                throw $e;
             }
         }
-        
-        return $result;
+
+        return $target;
     }
 
-    private function value()
+    /**
+     * @param array|object$context
+     *
+     * @return SourceInterface
+     */
+    private function makeSource($context)
     {
+        if (is_array($context) || $context instanceof \ArrayAccess) {
+            return new ArraySource($context);
+        }
+        if (is_object($context)) {
+            return new ObjectSource($context);
+        }
     }
-
-
 }

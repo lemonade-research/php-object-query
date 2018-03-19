@@ -3,20 +3,15 @@
 
 namespace ObjectQuery\Test\Functional\TestClass;
 
-use ObjectQuery\Node\CollectionNode;
-use ObjectQuery\Node\ObjectNode;
-use ObjectQuery\NodeInterface;
-use ObjectQuery\Resolver\ResolverInterface;
-
 /**
  * Class DataBuilder
  *
  * @package ObjectQuery\Test\Functional\TestClass
  * @author Christian Blank <christian@cubicl.de>
  */
-class DataBuilder implements ResolverInterface
+class DataBuilder
 {
-    public static function getDroid(int $id)
+    public function getDroid(int $id)
     {
         $data = [
             2000 => [
@@ -39,18 +34,18 @@ class DataBuilder implements ResolverInterface
 
         $droidData = $data[$id];
         $episodes = array_map(function ($episodeNumber) {
-            return self::getEpisode($episodeNumber);
+            return $this->getEpisode($episodeNumber);
         }, $droidData['appears']);
 
         return new Droid($id, $droidData['friends'], $droidData['name'], $episodes, $droidData['function']);
     }
 
-    public static function getCharacter(int $id)
+    public function getCharacter(int $id)
     {
-        return self::getDroid($id) ?? self::getHuman($id);
+        return $this->getDroid($id) ?? $this->getHuman($id);
     }
 
-    public static function getHuman(int $id)
+    public function getHuman(int $id)
     {
         $data = [
             1000 => [
@@ -101,22 +96,22 @@ class DataBuilder implements ResolverInterface
 
         $humanData = $data[$id];
         $episodes = array_map(function ($episodeNumber) {
-            return self::getEpisode($episodeNumber);
+            return $this->getEpisode($episodeNumber);
         }, $humanData['appears']);
         $starShips = array_map(function ($id) {
-            return self::getStarShip($id);
+            return $this->getStarShip($id);
         }, $humanData['starShips']);
 
         return new Human($id, $humanData['name'], $humanData['height'], $humanData['mass'], $humanData['friends'],
             $episodes, $starShips);
     }
 
-    public static function getEpisode(int $number)
+    public function getEpisode(int $number)
     {
         return new Episode($number);
     }
 
-    public static function getStarShip(int $id)
+    public function getStarShip(int $id)
     {
         $data = [
             3000 => [
@@ -140,21 +135,5 @@ class DataBuilder implements ResolverInterface
         $shipData = $data[$id];
 
         return new StarShip($id, $shipData['name'], $shipData['length']);
-    }
-
-    public function getProperty(NodeInterface $graph, string $name): NodeInterface
-    {
-        // TODO: Implement getProperty() method.
-    }
-
-    public function getRoot(string $name): NodeInterface
-    {
-        switch ($name) {
-            case 'hero':
-                return new CollectionNode([
-                    new ObjectNode(self::getCharacter(1000)),
-                    new ObjectNode(self::getCharacter(2001)),
-                ]);
-        }
     }
 }

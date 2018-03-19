@@ -2,10 +2,9 @@
 
 namespace ObjectQuery\Test\Functional;
 
-use ObjectQuery\QueryBuilder;
+use ObjectQuery\Definition\Path;
+use ObjectQuery\Query\Query;
 use ObjectQuery\QueryResolver;
-use ObjectQuery\QueryResolverInterface;
-use ObjectQuery\Resolver\ResolverInterface;
 use ObjectQuery\Test\Functional\TestClass\DataBuilder;
 use PHPUnit\Framework\TestCase;
 
@@ -18,41 +17,28 @@ use PHPUnit\Framework\TestCase;
 class ObjectQueryTest extends TestCase
 {
     /**
-     * @var ResolverInterface
+     * @var DataBuilder
      */
-    private $rootResolver;
+    private $dataBuilder;
 
-    /**
-     * @var QueryResolverInterface
-     */
-    private $queryResolver;
-
-    /**
-     * @var QueryBuilder
-     */
-    private $queryBuilder;
-
-    /**
-     *
-     */
     protected function setUp()
     {
-        $this->queryResolver = new QueryResolver();
-        $this->queryBuilder = QueryBuilder::create();
-        $this->rootResolver = new DataBuilder();
+        parent::setUp();
+
+        $this->dataBuilder = new DataBuilder();
     }
 
     /**
      * @test
      */
-    public function itShouldResolveTheQuery()
+    public function itShouldResolveTheNameQuery()
     {
-        $query = $this->queryBuilder->withProperty('name', 'hero.name')->build();
+        $resolver = new QueryResolver(
+            new Query('name', (new Path())->get('name'))
+        );
 
-        $result = $this->queryResolver->resolve($query, $this->rootResolver);
+        $result = $resolver->resolveArray($this->dataBuilder->getCharacter(1000));
 
-        $this->assertCount(2, $result);
-        $this->assertSame(['name' => 'Luke Skywalker'], $result[0]);
-        $this->assertSame(['name' => 'R2-D2'], $result[1]);
+        $this->assertSame(['name' => 'Luke Skywalker'], $result);
     }
 }
