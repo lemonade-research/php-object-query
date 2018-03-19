@@ -47,20 +47,23 @@ final class ArraySource implements SourceInterface
      */
     public function get(string $field, $default = null)
     {
-        return array_map(function($entry) use ($field) {
-            $x = new ReflectionClass($entry);
-            $property = $x->getProperty($field);
-            $property->setAccessible(true);
+        return array_map(
+            function ($entry) use ($field) {
+                $x = new ReflectionClass($entry);
+                $property = $x->getProperty($field);
+                $property->setAccessible(true);
 
-            $value = $property->getValue($entry);
+                $value = $property->getValue($entry);
 
-            if (is_scalar($value)) {
-                return $value;
-            } elseif (is_object($value)) {
-                return new ObjectSource($value);
-            } elseif (is_array($value)) {
-                return new ArraySource($value);
-            }
-        }, $this->source);
+                if (is_scalar($value)) {
+                    return $value;
+                } elseif (is_object($value)) {
+                    return new ObjectSource($value);
+                } elseif (is_array($value)) {
+                    return new ArraySource($value);
+                }
+            },
+            $this->source
+        );
     }
 }
