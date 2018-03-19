@@ -25,9 +25,13 @@ final class Path implements DefinitionInterface
      */
     public function getValue(SourceInterface $source)
     {
+        $step = $source;
+
         foreach ($this->operations as $operation) {
-            return $source->get($operation);
+            $step = $step->get($operation);
         }
+
+        return $step;
     }
 
     /**

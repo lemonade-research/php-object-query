@@ -3,6 +3,7 @@
 namespace ObjectQuery\Source;
 
 use ObjectQuery\SourceInterface;
+use ReflectionClass;
 
 /**
  * Class ArraySource
@@ -35,25 +36,31 @@ final class ArraySource implements SourceInterface
      */
     public function has(string $field): bool
     {
-        if (is_array($this->source)) {
-            return array_key_exists($field, $this->source);
-        }
-
-        return $this->source->offsetExists($field);
+        return true;
     }
 
     /**
      * @param string $field
      * @param mixed  $default
      *
-     * @return mixed
+     * @return array
      */
     public function get(string $field, $default = null)
     {
-        if (!$this->has($field)) {
-            return $default;
-        }
+        return array_map(function($entry) use ($field) {
+            $x = new ReflectionClass($entry);
+            $property = $x->getProperty($field);
+            $property->setAccessible(true);
 
-        return $this->source[$field];
+            $value = $property->getValue($entry);
+
+            if (is_scalar($value)) {
+                return $value;
+            } elseif (is_object($value)) {
+                return new ObjectSource($value);
+            } elseif (is_array($value)) {
+                return new ArraySource($value);
+            }
+        }, $this->source);
     }
 }

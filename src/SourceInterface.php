@@ -21,7 +21,7 @@ interface SourceInterface
      * @param string $field
      * @param mixed  $default
      *
-     * @return mixed
+     * @return SourceInterface|mixed
      */
     public function get(string $field, $default = null);
 }

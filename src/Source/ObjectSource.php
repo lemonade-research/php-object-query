@@ -46,7 +46,7 @@ final class ObjectSource implements SourceInterface
      * @param string $field
      * @param mixed  $default
      *
-     * @return mixed
+     * @return SourceInterface|mixed
      * @throws \ReflectionException
      */
     public function get(string $field, $default = null)
@@ -59,6 +59,14 @@ final class ObjectSource implements SourceInterface
         $property = $x->getProperty($field);
         $property->setAccessible(true);
 
-        return $property->getValue($this->source);
+        $value = $property->getValue($this->source);
+
+        if (is_scalar($value)) {
+            return $value;
+        } elseif (is_object($value)) {
+            return new ObjectSource($value);
+        } elseif (is_array($value)) {
+            return new ArraySource($value);
+        }
     }
 }
