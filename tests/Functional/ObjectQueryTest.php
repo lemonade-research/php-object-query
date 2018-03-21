@@ -3,6 +3,7 @@
 namespace ObjectQuery\Test\Functional;
 
 use ObjectQuery\Definition\Path;
+use ObjectQuery\Definition\Value;
 use ObjectQuery\Query\Query;
 use ObjectQuery\QueryResolver;
 use ObjectQuery\Test\Functional\TestClass\DataBuilder;
@@ -75,5 +76,19 @@ class ObjectQueryTest extends TestCase
         );
 
         $this->assertSame(['shipNames' => ['Millenium Falcon', 'X-Wing', 'TIE Advanced x1', 'Imperial shuttle']], $result);
+    }
+
+    /**
+     * @test
+     */
+    public function itShouldReturnAValueObjectAsItWasStored()
+    {
+        $resolver = new QueryResolver(
+            new Query('someKey', new Value('foo'))
+        );
+
+        $actual = $resolver->resolveArray($this->dataBuilder->getStarShip(3000));
+
+        $this->assertSame(['someKey' => 'foo'], $actual);
     }
 }
