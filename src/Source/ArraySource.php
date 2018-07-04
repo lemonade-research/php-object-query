@@ -3,7 +3,6 @@
 namespace ObjectQuery\Source;
 
 use ObjectQuery\SourceInterface;
-use ReflectionClass;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\PropertyAccess\PropertyAccessor;
 
@@ -16,7 +15,7 @@ use Symfony\Component\PropertyAccess\PropertyAccessor;
 final class ArraySource implements SourceInterface
 {
     /**
-     * @var array|\ArrayAccess
+     * @var array
      */
     private $source;
 
@@ -26,13 +25,10 @@ final class ArraySource implements SourceInterface
     private $propertyAccessor;
 
     /**
-     * @param array|\ArrayAccess $source
+     * @param array $source
      */
     public function __construct($source)
     {
-        if (!is_array($source) && !$source instanceof \ArrayAccess) {
-            throw new \InvalidArgumentException('Source must be an array or implement ArrayAccess interface');
-        }
         $this->source = $source;
         $this->propertyAccessor = PropertyAccess::createPropertyAccessor();
     }

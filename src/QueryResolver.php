@@ -61,13 +61,13 @@ final class QueryResolver implements QueryResolverInterface
     }
 
     /**
-     * @param array|object$context
+     * @param array|object $context
      *
      * @return SourceInterface
      */
     private function makeSource($context)
     {
-        if (is_array($context) || $context instanceof \ArrayAccess) {
+        if (is_array($context)) {
             return new ArraySource($context);
         }
 
