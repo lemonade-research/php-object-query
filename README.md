@@ -11,3 +11,49 @@ based on the requirements of external systems.
 
 ## Usage
 
+`Query` and the `QueryResolver` are the two key components of the system. A
+resolver needs one or more queries and resolves these queries by processing
+them on a given object graph.
+
+```php
+<?php
+
+use ObjectQuery\Query\Query;
+use ObjectQuery\QueryResolver;
+use ObjectQuery\Definition\Path;
+
+$resolver = new QueryResolver(
+    new Query('shipName', (new Path())->get('name'))
+);
+
+$resolver->resolveArray($someShip);
+// ['shipName' => 'Millenium Falcon']
+```
+
+A query consists of a name which ends up being the key in the result and a definition.
+
+### Definitions
+
+There are three main definitions in the system you can use. `Path`, `Value` and `Composition`.
+
+#### Value
+
+The `Value` definition is a plain container which will return the given value based.
+
+```php
+<?php
+
+use ObjectQuery\Query\Query;
+use ObjectQuery\QueryResolver;
+use ObjectQuery\Definition\Value;
+
+$resolver = new QueryResolver(
+    new Query('two', new Value(2))
+);
+
+$resolver->resolveArray($someObject);
+// ['two' => 2]
+```
+
+#### Composition
+
