@@ -30,15 +30,18 @@ $resolver->resolveArray($someShip);
 // ['shipName' => 'Millenium Falcon']
 ```
 
-A query consists of a name which ends up being the key in the result and a definition.
+A query consists of a name which ends up being the key in the result and a
+definition.
 
 ### Definitions
 
-There are three main definitions in the system you can use. `Path`, `Value` and `Composition`.
+There are three main definitions in the system you can use. `Path`, `Value` and
+`Composition`.
 
 #### Value
 
-The `Value` definition is a plain container which will return the given value based.
+The `Value` definition is a plain container which will return the given value
+based.
 
 ```php
 <?php
@@ -57,3 +60,30 @@ $resolver->resolveArray($someObject);
 
 #### Composition
 
+The `Composition` definition is a more flexible alternative to `Value`. It
+gives access to the current source.
+
+```php
+<?php
+
+use ObjectQuery\Query\Query;
+use ObjectQuery\QueryResolver;
+use ObjectQuery\Definition\Composition;
+use ObjectQuery\Source\ObjectSource;
+
+$composition = new Composition(function(ObjectSource $source) {
+    return $source->get('id');
+});
+$resolver = new QueryResolver(
+    new Query('someKey', $composition)
+);
+
+$resolver->resolveArray($someObject);
+// ['someKey' => 3000]
+```
+
+#### Path
+
+`Path` is the most complex definition. You can deep walk into the graph, filter
+collections and transform leaves. Have a look into the tests to get an
+impression of the possibilities.
