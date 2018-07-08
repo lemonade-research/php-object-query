@@ -33,7 +33,7 @@ final class Path implements DefinitionInterface
         foreach ($this->operations as $operation) {
             if ($operation instanceof PredicateInterface) {
                 $step = new ArraySource(array_filter($step->getSource(), $operation));
-            } else if ($operation instanceof TransformerInterface) {
+            } elseif ($operation instanceof TransformerInterface) {
                 return $operation->transform($step);
             } else {
                 $step = $step->get($operation);
