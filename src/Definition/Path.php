@@ -3,7 +3,10 @@
 namespace ObjectQuery\Definition;
 
 use ObjectQuery\DefinitionInterface;
+use ObjectQuery\PredicateInterface;
+use ObjectQuery\Source\ArraySource;
 use ObjectQuery\SourceInterface;
+use ObjectQuery\TransformerInterface;
 
 /**
  * Immutable path object
@@ -14,7 +17,7 @@ use ObjectQuery\SourceInterface;
 final class Path implements DefinitionInterface
 {
     /**
-     * @var string[]
+     * @var array
      */
     private $operations = [];
 
@@ -28,7 +31,13 @@ final class Path implements DefinitionInterface
         $step = $source;
 
         foreach ($this->operations as $operation) {
-            $step = $step->get($operation);
+            if ($operation instanceof PredicateInterface) {
+                $step = new ArraySource(array_filter($step->getSource(), $operation));
+            } else if ($operation instanceof TransformerInterface) {
+                return $operation->transform($step);
+            } else {
+                $step = $step->get($operation);
+            }
         }
 
         return $step;
@@ -43,6 +52,32 @@ final class Path implements DefinitionInterface
     {
         $clone = clone $this;
         $clone->operations[] = $property;
+
+        return $clone;
+    }
+
+    /**
+     * @param PredicateInterface $predicate
+     *
+     * @return Path
+     */
+    public function filter(PredicateInterface $predicate): Path
+    {
+        $clone = clone $this;
+        $clone->operations[] = $predicate;
+
+        return $clone;
+    }
+
+    /**
+     * @param TransformerInterface $transformer
+     *
+     * @return Path
+     */
+    public function transform(TransformerInterface $transformer): Path
+    {
+        $clone = clone $this;
+        $clone->operations[] = $transformer;
 
         return $clone;
     }

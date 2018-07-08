@@ -69,4 +69,9 @@ final class ObjectSource implements SourceInterface
             return new ArraySource($value);
         }
     }
+
+    public function getSource()
+    {
+        return $this->source;
+    }
 }

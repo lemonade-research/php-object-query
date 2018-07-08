@@ -4,6 +4,7 @@ namespace ObjectQuery;
 
 use ObjectQuery\Source\ArraySource;
 use ObjectQuery\Source\ObjectSource;
+use Throwable;
 
 /**
  * Class QueryResolver
@@ -19,13 +20,11 @@ final class QueryResolver implements QueryResolverInterface
     private $queries = [];
 
     /**
-     * @param QueryInterface[] ...$queries
+     * @param QueryInterface ...$queries
      */
     public function __construct(QueryInterface ...$queries)
     {
-        foreach ($queries as $query) {
-            $this->queries[$query->getName()] = $query;
-        }
+        $this->queries = $queries;
     }
 
     /**
@@ -33,6 +32,7 @@ final class QueryResolver implements QueryResolverInterface
      * @param array|object $context
      *
      * @return array
+     * @throws Throwable
      */
     public function resolveArray($context): array
     {
@@ -43,6 +43,7 @@ final class QueryResolver implements QueryResolverInterface
      * @param array|object $context
      *
      * @return array
+     * @throws Throwable
      */
     private function map($context): array
     {
@@ -52,7 +53,7 @@ final class QueryResolver implements QueryResolverInterface
         foreach ($this->queries as $query) {
             try {
                 $target[$query->getName()] = $query->getDefinition()->getValue($context);
-            } catch (\Throwable $e) {
+            } catch (Throwable $e) {
                 throw $e;
             }
         }

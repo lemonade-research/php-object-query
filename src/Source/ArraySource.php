@@ -66,4 +66,12 @@ final class ArraySource implements SourceInterface
             $this->source
         );
     }
+
+    /**
+     * @return array
+     */
+    public function getSource()
+    {
+        return $this->source;
+    }
 }

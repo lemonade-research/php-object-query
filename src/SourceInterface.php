@@ -24,4 +24,6 @@ interface SourceInterface
      * @return SourceInterface|mixed
      */
     public function get(string $field, $default = null);
+
+    public function getSource();
 }

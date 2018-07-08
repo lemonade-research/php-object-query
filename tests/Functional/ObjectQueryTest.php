@@ -2,11 +2,16 @@
 
 namespace ObjectQuery\Test\Functional;
 
+use ObjectQuery\Definition\Composition;
 use ObjectQuery\Definition\Path;
 use ObjectQuery\Definition\Value;
 use ObjectQuery\Query\Query;
 use ObjectQuery\QueryResolver;
+use ObjectQuery\Source\ObjectSource;
 use ObjectQuery\Test\Functional\TestClass\DataBuilder;
+use ObjectQuery\Test\Functional\TestClass\Episode;
+use ObjectQuery\Test\Functional\TestClass\EpisodeFilter;
+use ObjectQuery\Test\Functional\TestClass\IdTransformer;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -24,8 +29,6 @@ class ObjectQueryTest extends TestCase
 
     protected function setUp()
     {
-        parent::setUp();
-
         $this->dataBuilder = new DataBuilder();
     }
 
@@ -90,5 +93,50 @@ class ObjectQueryTest extends TestCase
         $actual = $resolver->resolveArray($this->dataBuilder->getStarShip(3000));
 
         $this->assertSame(['someKey' => 'foo'], $actual);
+    }
+
+    /**
+     * @test
+     */
+    public function itShouldReturnTheResultOfTheComposition()
+    {
+        $composition = new Composition(function(ObjectSource $source) {
+            return $source->get('id');
+        });
+        $resolver = new QueryResolver(
+            new Query('someKey', $composition)
+        );
+
+        $actual = $resolver->resolveArray($this->dataBuilder->getStarShip(3000));
+
+        $this->assertSame(['someKey' => 3000], $actual);
+    }
+
+    /**
+     * @test
+     */
+    public function itShouldTransformValue()
+    {
+        $resolver = new QueryResolver(
+            new Query('lukes ID', (new Path())->get('id')->transform(new IdTransformer()))
+        );
+
+        $result = $resolver->resolveArray($this->dataBuilder->getCharacter(1000));
+
+        $this->assertSame(['lukes ID' => 1001], $result);
+    }
+
+    /**
+     * @test
+     */
+    public function itShouldFilterEpisodes()
+    {
+        $resolver = new QueryResolver(
+            new Query('episodes', (new Path())->get('appearsIn')->filter(new EpisodeFilter(Episode::EMPIRE))->get('episode'))
+        );
+
+        $result = $resolver->resolveArray($this->dataBuilder->getCharacter(1000));
+
+        $this->assertSame(['episodes' => [1, 2]], $result);
     }
 }
