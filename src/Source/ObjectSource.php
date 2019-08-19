@@ -15,19 +15,12 @@ use Symfony\Component\PropertyAccess\PropertyAccessor;
  */
 final class ObjectSource implements SourceInterface
 {
-    /**
-     * @var object
-     */
+    /** @var object */
     private $source;
 
-    /**
-     * @var PropertyAccessor
-     */
+    /** @var PropertyAccessor */
     private $propertyAccessor;
 
-    /**
-     * @param object $source
-     */
     public function __construct($source)
     {
         if (!is_object($source)) {
@@ -37,11 +30,6 @@ final class ObjectSource implements SourceInterface
         $this->propertyAccessor = PropertyAccess::createPropertyAccessor();
     }
 
-    /**
-     * @param string $field
-     *
-     * @return bool
-     */
     public function has(string $field): bool
     {
         return $this->propertyAccessor->isReadable($this->source, $field);
@@ -63,9 +51,13 @@ final class ObjectSource implements SourceInterface
 
         if (is_scalar($value)) {
             return $value;
-        } elseif (is_object($value)) {
+        }
+
+        if (is_object($value)) {
             return new ObjectSource($value);
-        } elseif (is_array($value)) {
+        }
+
+        if (is_array($value)) {
             return new ArraySource($value);
         }
     }

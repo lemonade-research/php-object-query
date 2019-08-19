@@ -19,7 +19,8 @@ class CompositionTest extends TestCase
      */
     public function itCanBeConstructed()
     {
-        $actual = new Composition(function() {});
+        $actual = new Composition(function () {
+        });
 
         $this->assertInstanceOf(DefinitionInterface::class, $actual);
     }

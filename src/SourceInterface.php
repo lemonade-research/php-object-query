@@ -10,11 +10,6 @@ namespace ObjectQuery;
  */
 interface SourceInterface
 {
-    /**
-     * @param string $field
-     *
-     * @return bool
-     */
     public function has(string $field): bool;
 
     /**

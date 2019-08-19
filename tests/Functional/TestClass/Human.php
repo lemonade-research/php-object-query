@@ -41,11 +41,6 @@ class Human implements CharacterInterface
     private $mass;
 
     /**
-     * @var StarShip[]
-     */
-    private $starShips;
-
-    /**
      * Human constructor.
      *
      * @param float      $height
@@ -56,38 +51,61 @@ class Human implements CharacterInterface
      * @param int        $mass
      * @param StarShip[] $starShips
      */
-    public function __construct($id, $name, $height, $mass, array $friends, array $appearsIn, array $starShips)
-    {
-        $this->height = $height;
-        $this->id = $id;
-        $this->name = $name;
-        $this->friends = $friends;
+    public function __construct(
+        int $id,
+        string $name,
+        float $height,
+        int $mass,
+        array $friends,
+        array $appearsIn,
+        array $starShips
+    ) {
+        $this->height    = $height;
+        $this->id        = $id;
+        $this->name      = $name;
+        $this->friends   = $friends;
         $this->appearsIn = $appearsIn;
-        $this->mass = $mass;
+        $this->mass      = $mass;
         $this->starShips = $starShips;
     }
 
-    public function id()
+    /**
+     * @var StarShip[]
+     */
+    private $starShips;
+
+    public function id(): int
     {
         return $this->id;
     }
 
-    public function name()
+    public function name(): string
     {
         return $this->name;
     }
 
-    public function friends()
+    /**
+     * @return CharacterInterface[]
+     */
+    public function friends(): array
     {
-        return array_map(function ($id) {return DataBuilder::getCharacter($id);}, $this->friends);
+        return array_map(
+            function ($id) {
+                return (new DataBuilder())->getCharacter($id);
+            },
+            $this->friends
+        );
     }
 
-    public function appearsIn()
+    /**
+     * @return Episode[]
+     */
+    public function appearsIn(): array
     {
         return $this->appearsIn;
     }
 
-    public function height(LengthUnit $unit)
+    public function height(LengthUnit $unit): float
     {
         if ($unit->getUnit() === LengthUnit::FOOT) {
             return $this->height * 3.28084;
@@ -96,15 +114,16 @@ class Human implements CharacterInterface
         return $this->height;
     }
 
-    public function mass()
+    public function mass(): int
     {
         return $this->mass;
-
     }
 
-    public function starShips()
+    /**
+     * @return StarShip[]
+     */
+    public function starShips(): array
     {
         return $this->starShips;
-
     }
 }

@@ -54,27 +54,35 @@ class Droid implements CharacterInterface
     }
 
 
-    public function id()
+    public function id(): int
     {
         return $this->id;
     }
 
-    public function name()
+    public function name(): string
     {
         return $this->name;
     }
 
-    public function friends()
+    /**
+     * @inheritDoc
+     */
+    public function friends(): array
     {
-        return array_map(function ($id) {return DataBuilder::getCharacter($id);}, $this->friends);
+        return array_map(function ($id) {
+            return (new DataBuilder())->getCharacter($id);
+        }, $this->friends);
     }
 
-    public function appearsIn()
+    /**
+     * @inheritDoc
+     */
+    public function appearsIn(): array
     {
         return $this->appearsIn;
     }
 
-    public function primaryFunction()
+    public function primaryFunction(): string
     {
         return $this->primaryFunction;
     }

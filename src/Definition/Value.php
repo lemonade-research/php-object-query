@@ -13,26 +13,14 @@ use ObjectQuery\SourceInterface;
  */
 final class Value implements DefinitionInterface
 {
-    /**
-     * @var mixed
-     */
+    /** @var mixed */
     private $value;
 
-    /**
-     * Value constructor.
-     *
-     * @param mixed $value
-     */
     public function __construct($value)
     {
         $this->value = $value;
     }
 
-    /**
-     * @param SourceInterface $source
-     *
-     * @return mixed
-     */
     public function getValue(SourceInterface $source)
     {
         return $this->value;

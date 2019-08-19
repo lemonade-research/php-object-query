@@ -10,11 +10,17 @@ namespace ObjectQuery\Test\Functional\TestClass;
  */
 interface CharacterInterface
 {
-    public function id();
+    public function id(): int;
 
-    public function name();
+    public function name(): string;
 
-    public function friends();
+    /**
+     * @return CharacterInterface[]
+     */
+    public function friends(): array;
 
-    public function appearsIn();
+    /**
+     * @return Episode[]
+     */
+    public function appearsIn(): array;
 }

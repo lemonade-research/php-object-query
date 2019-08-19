@@ -36,6 +36,4 @@ class LengthUnit
     {
         return $this->unit;
     }
-
-
 }

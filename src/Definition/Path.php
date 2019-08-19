@@ -16,9 +16,7 @@ use ObjectQuery\TransformerInterface;
  */
 final class Path implements DefinitionInterface
 {
-    /**
-     * @var array
-     */
+    /**  @var array */
     private $operations = [];
 
     /**
@@ -43,11 +41,6 @@ final class Path implements DefinitionInterface
         return $step;
     }
 
-    /**
-     * @param string $property
-     *
-     * @return Path
-     */
     public function get(string $property): Path
     {
         $clone = clone $this;
@@ -56,11 +49,6 @@ final class Path implements DefinitionInterface
         return $clone;
     }
 
-    /**
-     * @param PredicateInterface $predicate
-     *
-     * @return Path
-     */
     public function filter(PredicateInterface $predicate): Path
     {
         $clone = clone $this;
@@ -69,11 +57,6 @@ final class Path implements DefinitionInterface
         return $clone;
     }
 
-    /**
-     * @param TransformerInterface $transformer
-     *
-     * @return Path
-     */
     public function transform(TransformerInterface $transformer): Path
     {
         $clone = clone $this;

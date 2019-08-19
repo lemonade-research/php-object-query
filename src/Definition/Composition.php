@@ -13,16 +13,9 @@ use ObjectQuery\SourceInterface;
  */
 final class Composition implements DefinitionInterface
 {
-    /**
-     * @var callable
-     */
+    /** @var callable */
     private $compositor;
 
-    /**
-     * Composition constructor.
-     *
-     * @param callable $compositor
-     */
     public function __construct(callable $compositor)
     {
         $this->compositor = $compositor;
@@ -35,8 +28,6 @@ final class Composition implements DefinitionInterface
      */
     public function getValue(SourceInterface $source)
     {
-        $result = call_user_func($this->compositor, $source);
-
-        return $result;
+        return call_user_func($this->compositor, $source);
     }
 }

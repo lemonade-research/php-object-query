@@ -9,11 +9,5 @@ namespace ObjectQuery;
  */
 interface QueryResolverInterface
 {
-    /**
-     *
-     * @param array|object $context
-     *
-     * @return array
-     */
-    public function resolveArray($context): array;
+    public function resolve(SourceInterface $source): array;
 }

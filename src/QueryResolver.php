@@ -14,9 +14,7 @@ use Throwable;
  */
 final class QueryResolver implements QueryResolverInterface
 {
-    /**
-     * @var QueryInterface[]
-     */
+    /** @var QueryInterface[] */
     private $queries = [];
 
     /**
@@ -27,51 +25,29 @@ final class QueryResolver implements QueryResolverInterface
         $this->queries = $queries;
     }
 
-    /**
-     *
-     * @param array|object $context
-     *
-     * @return array
-     * @throws Throwable
-     */
-    public function resolveArray($context): array
+    public function resolve(SourceInterface $source): array
     {
-        return $this->map($context);
+        return $this->map($source);
     }
 
     /**
-     * @param array|object $context
+     * @param SourceInterface $source
      *
      * @return array
      * @throws Throwable
      */
-    private function map($context): array
+    private function map(SourceInterface $source): array
     {
-        $context = $this->makeSource($context);
         $target = [];
 
         foreach ($this->queries as $query) {
             try {
-                $target[$query->getName()] = $query->getDefinition()->getValue($context);
+                $target[$query->getName()] = $query->getDefinition()->getValue($source);
             } catch (Throwable $e) {
                 throw $e;
             }
         }
 
         return $target;
-    }
-
-    /**
-     * @param array|object $context
-     *
-     * @return SourceInterface
-     */
-    private function makeSource($context)
-    {
-        if (is_array($context)) {
-            return new ArraySource($context);
-        }
-
-        return new ObjectSource($context);
     }
 }

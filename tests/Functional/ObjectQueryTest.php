@@ -7,6 +7,7 @@ use ObjectQuery\Definition\Path;
 use ObjectQuery\Definition\Value;
 use ObjectQuery\Query\Query;
 use ObjectQuery\QueryResolver;
+use ObjectQuery\Source\ArraySource;
 use ObjectQuery\Source\ObjectSource;
 use ObjectQuery\Test\Functional\TestClass\DataBuilder;
 use ObjectQuery\Test\Functional\TestClass\Episode;
@@ -27,7 +28,7 @@ class ObjectQueryTest extends TestCase
      */
     private $dataBuilder;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->dataBuilder = new DataBuilder();
     }
@@ -35,13 +36,13 @@ class ObjectQueryTest extends TestCase
     /**
      * @test
      */
-    public function itShouldResolveTheNameQuery()
+    public function itShouldResolveTheNameQuery(): void
     {
         $resolver = new QueryResolver(
             new Query('name', (new Path())->get('name'))
         );
 
-        $result = $resolver->resolveArray($this->dataBuilder->getCharacter(1000));
+        $result = $resolver->resolve(new ObjectSource($this->dataBuilder->getCharacter(1000)));
 
         $this->assertSame(['name' => 'Luke Skywalker'], $result);
     }
@@ -49,13 +50,13 @@ class ObjectQueryTest extends TestCase
     /**
      * @test
      */
-    public function itShouldResolveTheNestedEpisodesQuery()
+    public function itShouldResolveTheNestedEpisodesQuery(): void
     {
         $resolver = new QueryResolver(
             new Query('episodes', (new Path())->get('appearsIn')->get('episode'))
         );
 
-        $result = $resolver->resolveArray($this->dataBuilder->getCharacter(1000));
+        $result = $resolver->resolve(new ObjectSource($this->dataBuilder->getCharacter(1000)));
 
         $this->assertSame(['episodes' => [1, 2, 3]], $result);
     }
@@ -63,34 +64,37 @@ class ObjectQueryTest extends TestCase
     /**
      * @test
      */
-    public function itShouldResolveFlatQueryWithMultipleStarts()
+    public function itShouldResolveFlatQueryWithMultipleStarts(): void
     {
         $resolver = new QueryResolver(
             new Query('shipNames', (new Path())->get('name'))
         );
 
-        $result = $resolver->resolveArray(
+        $result = $resolver->resolve(new ArraySource(
             [
                 $this->dataBuilder->getStarShip(3000),
                 $this->dataBuilder->getStarShip(3001),
                 $this->dataBuilder->getStarShip(3002),
                 $this->dataBuilder->getStarShip(3003),
             ]
-        );
+        ));
 
-        $this->assertSame(['shipNames' => ['Millenium Falcon', 'X-Wing', 'TIE Advanced x1', 'Imperial shuttle']], $result);
+        $this->assertSame(
+            ['shipNames' => ['Millenium Falcon', 'X-Wing', 'TIE Advanced x1', 'Imperial shuttle']],
+            $result
+        );
     }
 
     /**
      * @test
      */
-    public function itShouldReturnAValueObjectAsItWasStored()
+    public function itShouldReturnAValueObjectAsItWasStored(): void
     {
         $resolver = new QueryResolver(
             new Query('someKey', new Value('foo'))
         );
 
-        $actual = $resolver->resolveArray($this->dataBuilder->getStarShip(3000));
+        $actual = $resolver->resolve(new ObjectSource($this->dataBuilder->getStarShip(3000)));
 
         $this->assertSame(['someKey' => 'foo'], $actual);
     }
@@ -98,16 +102,18 @@ class ObjectQueryTest extends TestCase
     /**
      * @test
      */
-    public function itShouldReturnTheResultOfTheComposition()
+    public function itShouldReturnTheResultOfTheComposition(): void
     {
-        $composition = new Composition(function(ObjectSource $source) {
-            return $source->get('id');
-        });
-        $resolver = new QueryResolver(
+        $composition = new Composition(
+            function (ObjectSource $source) {
+                return $source->get('id');
+            }
+        );
+        $resolver    = new QueryResolver(
             new Query('someKey', $composition)
         );
 
-        $actual = $resolver->resolveArray($this->dataBuilder->getStarShip(3000));
+        $actual = $resolver->resolve(new ObjectSource($this->dataBuilder->getStarShip(3000)));
 
         $this->assertSame(['someKey' => 3000], $actual);
     }
@@ -115,13 +121,13 @@ class ObjectQueryTest extends TestCase
     /**
      * @test
      */
-    public function itShouldTransformValue()
+    public function itShouldTransformValue(): void
     {
         $resolver = new QueryResolver(
             new Query('lukes ID', (new Path())->get('id')->transform(new IdTransformer()))
         );
 
-        $result = $resolver->resolveArray($this->dataBuilder->getCharacter(1000));
+        $result = $resolver->resolve(new ObjectSource($this->dataBuilder->getCharacter(1000)));
 
         $this->assertSame(['lukes ID' => 1001], $result);
     }
@@ -129,13 +135,16 @@ class ObjectQueryTest extends TestCase
     /**
      * @test
      */
-    public function itShouldFilterEpisodes()
+    public function itShouldFilterEpisodes(): void
     {
         $resolver = new QueryResolver(
-            new Query('episodes', (new Path())->get('appearsIn')->filter(new EpisodeFilter(Episode::EMPIRE))->get('episode'))
+            new Query(
+                'episodes',
+                (new Path())->get('appearsIn')->filter(new EpisodeFilter(Episode::EMPIRE))->get('episode')
+            )
         );
 
-        $result = $resolver->resolveArray($this->dataBuilder->getCharacter(1000));
+        $result = $resolver->resolve(new ObjectSource($this->dataBuilder->getCharacter(1000)));
 
         $this->assertSame(['episodes' => [1, 2]], $result);
     }
