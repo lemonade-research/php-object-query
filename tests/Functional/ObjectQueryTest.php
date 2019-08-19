@@ -1,24 +1,24 @@
 <?php
 
-namespace ObjectQuery\Test\Functional;
+namespace Cubicl\ObjectQuery\Tests\Functional;
 
-use ObjectQuery\Definition\Composition;
-use ObjectQuery\Definition\Path;
-use ObjectQuery\Definition\Value;
-use ObjectQuery\Query\Query;
-use ObjectQuery\QueryResolver;
-use ObjectQuery\Source\ArraySource;
-use ObjectQuery\Source\ObjectSource;
-use ObjectQuery\Test\Functional\TestClass\DataBuilder;
-use ObjectQuery\Test\Functional\TestClass\Episode;
-use ObjectQuery\Test\Functional\TestClass\EpisodeFilter;
-use ObjectQuery\Test\Functional\TestClass\IdTransformer;
+use Cubicl\ObjectQuery\Definition\Composition;
+use Cubicl\ObjectQuery\Definition\Path;
+use Cubicl\ObjectQuery\Definition\Value;
+use Cubicl\ObjectQuery\Query\Query;
+use Cubicl\ObjectQuery\QueryResolver;
+use Cubicl\ObjectQuery\Source\ArraySource;
+use Cubicl\ObjectQuery\Source\ObjectSource;
+use Cubicl\ObjectQuery\Tests\Functional\TestClass\DataBuilder;
+use Cubicl\ObjectQuery\Tests\Functional\TestClass\Episode;
+use Cubicl\ObjectQuery\Tests\Functional\TestClass\EpisodeFilter;
+use Cubicl\ObjectQuery\Tests\Functional\TestClass\IdTransformer;
 use PHPUnit\Framework\TestCase;
 
 /**
  * Class ObjectQueryTest
  *
- * @package ObjectQuery\Test\Functional
+ * @package Cubicl\ObjectQuery\Tests\Functional
  * @author  Christian Blank <christian@cubicl.de>
  */
 class ObjectQueryTest extends TestCase

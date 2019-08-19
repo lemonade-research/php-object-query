@@ -1,15 +1,13 @@
 <?php
 
-namespace ObjectQuery;
+namespace Cubicl\ObjectQuery;
 
-use ObjectQuery\Source\ArraySource;
-use ObjectQuery\Source\ObjectSource;
 use Throwable;
 
 /**
  * Class QueryResolver
  *
- * @package ObjectQuery
+ * @package Cubicl\ObjectQuery
  * @author Christian Blank <christian@cubicl.de>
  */
 final class QueryResolver implements QueryResolverInterface
@@ -25,6 +23,12 @@ final class QueryResolver implements QueryResolverInterface
         $this->queries = $queries;
     }
 
+    /**
+     * @param SourceInterface $source
+     *
+     * @return array
+     * @throws Throwable
+     */
     public function resolve(SourceInterface $source): array
     {
         return $this->map($source);

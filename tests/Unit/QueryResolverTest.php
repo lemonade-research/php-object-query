@@ -1,14 +1,14 @@
 <?php
 
-namespace ObjectQuery\Test\Unit;
+namespace Cubicl\ObjectQuery\Tests\Unit;
 
-use ObjectQuery\QueryResolver;
-use ObjectQuery\QueryResolverInterface;
+use Cubicl\ObjectQuery\QueryResolver;
+use Cubicl\ObjectQuery\QueryResolverInterface;
 use PHPUnit\Framework\TestCase;
 
 /**
  * Class QueryResolverTest
- * @package ObjectQuery\Test\Unit
+ * @package Cubicl\ObjectQuery\Tests\Unit
  * @author Christian Blank <christian@cubicl.de>
  */
 class QueryResolverTest extends TestCase
@@ -16,7 +16,7 @@ class QueryResolverTest extends TestCase
     /**
      * @test
      */
-    public function itCanBeConstructed()
+    public function itCanBeConstructed(): void
     {
         $resolver = new QueryResolver();
 

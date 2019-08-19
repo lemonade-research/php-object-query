@@ -6,7 +6,7 @@
     "authors": [
         {
             "name": "Christian Blank",
-            "email": "1blankz7@googlemail.com"
+            "email": "christian@cubicl.de"
         }
     ],
     "require": {
@@ -19,14 +19,14 @@
     },
     "autoload": {
         "psr-4": {
-            "ObjectQuery\\": [
+            "Cubicl\\ObjectQuery\\": [
                 "src"
             ]
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "ObjectQuery\\Test\\": [
+            "Cubicl\\ObjectQuery\\Tests\\": [
                 "tests"
             ]
         }

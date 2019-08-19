@@ -1,16 +1,16 @@
 <?php
 
-namespace ObjectQuery\Source;
+namespace Cubicl\ObjectQuery\Source;
 
-use ObjectQuery\SourceInterface;
-use ReflectionClass;
+use Cubicl\ObjectQuery\SourceInterface;
+use InvalidArgumentException;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\PropertyAccess\PropertyAccessor;
 
 /**
  * Class ObjectSource
  *
- * @package ObjectQuery\Source
+ * @package Cubicl\ObjectQuery\Source
  * @author  Christian Blank <christian@cubicl.de>
  */
 final class ObjectSource implements SourceInterface
@@ -24,7 +24,7 @@ final class ObjectSource implements SourceInterface
     public function __construct($source)
     {
         if (!is_object($source)) {
-            throw new \InvalidArgumentException('Source must be an object');
+            throw new InvalidArgumentException('Source must be an object');
         }
         $this->source = $source;
         $this->propertyAccessor = PropertyAccess::createPropertyAccessor();
@@ -60,6 +60,8 @@ final class ObjectSource implements SourceInterface
         if (is_array($value)) {
             return new ArraySource($value);
         }
+
+        return null;
     }
 
     public function getSource()

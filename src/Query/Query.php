@@ -1,14 +1,14 @@
 <?php
 
-namespace ObjectQuery\Query;
+namespace Cubicl\ObjectQuery\Query;
 
-use ObjectQuery\DefinitionInterface;
-use ObjectQuery\QueryInterface;
+use Cubicl\ObjectQuery\DefinitionInterface;
+use Cubicl\ObjectQuery\QueryInterface;
 
 /**
  * Class Query
  *
- * @package ObjectQuery
+ * @package Cubicl\ObjectQuery
  * @author  Christian Blank <christian@cubicl.de>
  */
 final class Query implements QueryInterface

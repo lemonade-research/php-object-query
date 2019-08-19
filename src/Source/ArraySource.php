@@ -1,15 +1,15 @@
 <?php
 
-namespace ObjectQuery\Source;
+namespace Cubicl\ObjectQuery\Source;
 
-use ObjectQuery\SourceInterface;
+use Cubicl\ObjectQuery\SourceInterface;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\PropertyAccess\PropertyAccessor;
 
 /**
  * Class ArraySource
  *
- * @package ObjectQuery\Source
+ * @package Cubicl\ObjectQuery\Source
  * @author  Christian Blank <christian@cubicl.de>
  */
 final class ArraySource implements SourceInterface
@@ -48,6 +48,8 @@ final class ArraySource implements SourceInterface
                 if (is_array($value)) {
                     return new ArraySource($value);
                 }
+
+                return null;
             },
             $this->source
         );

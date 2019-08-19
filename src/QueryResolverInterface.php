@@ -1,10 +1,10 @@
 <?php
 
-namespace ObjectQuery;
+namespace Cubicl\ObjectQuery;
 
 /**
  * Interface QueryResolverInterface
- * @package ObjectQuery
+ * @package Cubicl\ObjectQuery
  * @author Christian Blank <christian@cubicl.de>
  */
 interface QueryResolverInterface

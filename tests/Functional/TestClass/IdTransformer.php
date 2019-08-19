@@ -1,13 +1,13 @@
 <?php
 
-namespace ObjectQuery\Test\Functional\TestClass;
+namespace Cubicl\ObjectQuery\Tests\Functional\TestClass;
 
-use ObjectQuery\TransformerInterface;
+use Cubicl\ObjectQuery\TransformerInterface;
 
 /**
  * Class IdTransformer
  *
- * @package ObjectQuery\Test\Functional\TestClass
+ * @package Cubicl\ObjectQuery\Tests\Functional\TestClass
  * @author  Christian Blank <christian@cubicl.de>
  */
 class IdTransformer implements TransformerInterface

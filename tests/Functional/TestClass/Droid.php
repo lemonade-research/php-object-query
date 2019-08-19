@@ -1,11 +1,11 @@
 <?php
 
-namespace ObjectQuery\Test\Functional\TestClass;
+namespace Cubicl\ObjectQuery\Tests\Functional\TestClass;
 
 /**
  * Class Droid
  *
- * @package ObjectQuery\Test\Functional\TestClass
+ * @package Cubicl\ObjectQuery\Tests\Functional\TestClass
  * @author Christian Blank <christian@cubicl.de>
  */
 class Droid implements CharacterInterface

@@ -1,14 +1,14 @@
 <?php
 
-namespace ObjectQuery\Definition;
+namespace Cubicl\ObjectQuery\Definition;
 
-use ObjectQuery\DefinitionInterface;
-use ObjectQuery\SourceInterface;
+use Cubicl\ObjectQuery\DefinitionInterface;
+use Cubicl\ObjectQuery\SourceInterface;
 
 /**
  * Class Composition
  *
- * @package ObjectQuery\Definition
+ * @package Cubicl\ObjectQuery\Definition
  * @author  Christian Blank <christian@cubicl.de>
  */
 final class Composition implements DefinitionInterface
