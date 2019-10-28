@@ -16,7 +16,7 @@ class QueryResolverTest extends TestCase
     /**
      * @test
      */
-    public function itCanBeConstructed()
+    public function itCanBeConstructed(): void
     {
         $resolver = new QueryResolver();
 

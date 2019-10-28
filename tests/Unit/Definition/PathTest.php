@@ -17,7 +17,7 @@ class PathTest extends TestCase
     /**
      * @test
      */
-    public function itCanBeConstructed()
+    public function itCanBeConstructed(): void
     {
         $actual = new Path();
 

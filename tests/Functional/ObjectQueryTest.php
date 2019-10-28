@@ -27,7 +27,7 @@ class ObjectQueryTest extends TestCase
      */
     private $dataBuilder;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->dataBuilder = new DataBuilder();
     }
@@ -35,7 +35,7 @@ class ObjectQueryTest extends TestCase
     /**
      * @test
      */
-    public function itShouldResolveTheNameQuery()
+    public function itShouldResolveTheNameQuery(): void
     {
         $resolver = new QueryResolver(
             new Query('name', (new Path())->get('name'))
@@ -49,7 +49,7 @@ class ObjectQueryTest extends TestCase
     /**
      * @test
      */
-    public function itShouldResolveTheNestedEpisodesQuery()
+    public function itShouldResolveTheNestedEpisodesQuery(): void
     {
         $resolver = new QueryResolver(
             new Query('episodes', (new Path())->get('appearsIn')->get('episode'))
@@ -63,7 +63,7 @@ class ObjectQueryTest extends TestCase
     /**
      * @test
      */
-    public function itShouldResolveFlatQueryWithMultipleStarts()
+    public function itShouldResolveFlatQueryWithMultipleStarts(): void
     {
         $resolver = new QueryResolver(
             new Query('shipNames', (new Path())->get('name'))
@@ -84,7 +84,7 @@ class ObjectQueryTest extends TestCase
     /**
      * @test
      */
-    public function itShouldReturnAValueObjectAsItWasStored()
+    public function itShouldReturnAValueObjectAsItWasStored(): void
     {
         $resolver = new QueryResolver(
             new Query('someKey', new Value('foo'))
@@ -98,7 +98,7 @@ class ObjectQueryTest extends TestCase
     /**
      * @test
      */
-    public function itShouldReturnTheResultOfTheComposition()
+    public function itShouldReturnTheResultOfTheComposition(): void
     {
         $composition = new Composition(function(ObjectSource $source) {
             return $source->get('id');
@@ -115,7 +115,7 @@ class ObjectQueryTest extends TestCase
     /**
      * @test
      */
-    public function itShouldTransformValue()
+    public function itShouldTransformValue(): void
     {
         $resolver = new QueryResolver(
             new Query('lukes ID', (new Path())->get('id')->transform(new IdTransformer()))
@@ -129,10 +129,15 @@ class ObjectQueryTest extends TestCase
     /**
      * @test
      */
-    public function itShouldFilterEpisodes()
+    public function itShouldFilterEpisodes(): void
     {
         $resolver = new QueryResolver(
-            new Query('episodes', (new Path())->get('appearsIn')->filter(new EpisodeFilter(Episode::EMPIRE))->get('episode'))
+            new Query(
+                'episodes',
+                (new Path())
+                    ->get('appearsIn')
+                    ->filter(new EpisodeFilter(Episode::EMPIRE))
+                    ->get('episode'))
         );
 
         $result = $resolver->resolveArray($this->dataBuilder->getCharacter(1000));
