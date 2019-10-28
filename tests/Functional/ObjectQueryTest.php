@@ -143,7 +143,8 @@ class ObjectQueryTest extends TestCase
                 (new Path())
                     ->get('appearsIn')
                     ->filter(new EpisodeFilter(Episode::EMPIRE))
-                    ->get('episode'))
+                ->get('episode')
+            )
         );
 
         $result = $resolver->resolve(new ObjectSource($this->dataBuilder->getCharacter(1000)));
