@@ -140,7 +140,10 @@ class ObjectQueryTest extends TestCase
         $resolver = new QueryResolver(
             new Query(
                 'episodes',
-                (new Path())->get('appearsIn')->filter(new EpisodeFilter(Episode::EMPIRE))->get('episode')
+                (new Path())
+                    ->get('appearsIn')
+                    ->filter(new EpisodeFilter(Episode::EMPIRE))
+                ->get('episode')
             )
         );
 

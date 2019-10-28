@@ -10,9 +10,9 @@ namespace Cubicl\ObjectQuery\Tests\Functional\TestClass;
  */
 class LengthUnit
 {
-    const METER = 1;
+    public const METER = 1;
 
-    const FOOT = 2;
+    public const FOOT = 2;
 
     /**
      * @var int

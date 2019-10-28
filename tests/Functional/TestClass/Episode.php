@@ -10,11 +10,11 @@ namespace Cubicl\ObjectQuery\Tests\Functional\TestClass;
  */
 class Episode
 {
-    const NEW_HOPE = 1;
+    public const NEW_HOPE = 1;
 
-    const EMPIRE = 2;
+    public const EMPIRE = 2;
 
-    const JEDI = 3;
+    public const JEDI = 3;
 
     /**
      * @var int
