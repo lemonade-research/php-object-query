@@ -16,15 +16,15 @@ resolves these queries by processing them on a given object graph.
 ```php
 <?php
 
-use ObjectQuery\Query\Query;
-use ObjectQuery\QueryResolver;
-use ObjectQuery\Definition\Path;
+use Cubicl\ObjectQuery\Query\Query;
+use Cubicl\ObjectQuery\QueryResolver;
+use Cubicl\ObjectQuery\Definition\Path;
 
 $resolver = new QueryResolver(
     new Query('shipName', (new Path())->get('name'))
 );
 
-$resolver->resolveArray($someShip);
+$resolver->resolve($someShip);
 // ['shipName' => 'Millenium Falcon']
 ```
 
@@ -39,15 +39,15 @@ The `Value` definition is a plain container which will return the given value.
 ```php
 <?php
 
-use ObjectQuery\Query\Query;
-use ObjectQuery\QueryResolver;
-use ObjectQuery\Definition\Value;
+use Cubicl\ObjectQuery\Query\Query;
+use Cubicl\ObjectQuery\QueryResolver;
+use Cubicl\ObjectQuery\Definition\Value;
 
 $resolver = new QueryResolver(
     new Query('two', new Value(2))
 );
 
-$resolver->resolveArray($someObject);
+$resolver->resolve($someObject);
 // ['two' => 2]
 ```
 
@@ -58,10 +58,10 @@ The `Composition` definition is a more flexible alternative to `Value`. It gives
 ```php
 <?php
 
-use ObjectQuery\Query\Query;
-use ObjectQuery\QueryResolver;
-use ObjectQuery\Definition\Composition;
-use ObjectQuery\Source\ObjectSource;
+use Cubicl\ObjectQuery\Query\Query;
+use Cubicl\ObjectQuery\QueryResolver;
+use Cubicl\ObjectQuery\Definition\Composition;
+use Cubicl\ObjectQuery\Source\ObjectSource;
 
 $composition = new Composition(function(ObjectSource $source) {
     return $source->get('id');
@@ -70,7 +70,7 @@ $resolver = new QueryResolver(
     new Query('someKey', $composition)
 );
 
-$resolver->resolveArray($someObject);
+$resolver->resolve($someObject);
 // ['someKey' => 3000]
 ```
 

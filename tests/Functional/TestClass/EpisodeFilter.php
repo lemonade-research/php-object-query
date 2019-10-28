@@ -1,13 +1,13 @@
 <?php
 
-namespace ObjectQuery\Test\Functional\TestClass;
+namespace Cubicl\ObjectQuery\Tests\Functional\TestClass;
 
-use ObjectQuery\PredicateInterface;
+use Cubicl\ObjectQuery\PredicateInterface;
 
 /**
  * Class IdFilter
  *
- * @package ObjectQuery\Test\Functional\TestClass
+ * @package Cubicl\ObjectQuery\Tests\Functional\TestClass
  * @author  Christian Blank <christian@cubicl.de>
  */
 class EpisodeFilter implements PredicateInterface

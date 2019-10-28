@@ -1,17 +1,16 @@
 <?php
 
-
-namespace ObjectQuery\Test\Functional\TestClass;
+namespace Cubicl\ObjectQuery\Tests\Functional\TestClass;
 
 /**
  * Class DataBuilder
  *
- * @package ObjectQuery\Test\Functional\TestClass
+ * @package Cubicl\ObjectQuery\Tests\Functional\TestClass
  * @author Christian Blank <christian@cubicl.de>
  */
 class DataBuilder
 {
-    public function getDroid(int $id)
+    public function getDroid(int $id): ?Droid
     {
         $data = [
             2000 => [
@@ -40,12 +39,12 @@ class DataBuilder
         return new Droid($id, $droidData['friends'], $droidData['name'], $episodes, $droidData['function']);
     }
 
-    public function getCharacter(int $id)
+    public function getCharacter(int $id): ?CharacterInterface
     {
         return $this->getDroid($id) ?? $this->getHuman($id);
     }
 
-    public function getHuman(int $id)
+    public function getHuman(int $id): ?Human
     {
         $data = [
             1000 => [
@@ -102,16 +101,23 @@ class DataBuilder
             return $this->getStarShip($id);
         }, $humanData['starShips']);
 
-        return new Human($id, $humanData['name'], $humanData['height'], $humanData['mass'], $humanData['friends'],
-            $episodes, $starShips);
+        return new Human(
+            $id,
+            $humanData['name'],
+            $humanData['height'],
+            (int)$humanData['mass'],
+            $humanData['friends'],
+            $episodes,
+            $starShips
+        );
     }
 
-    public function getEpisode(int $number)
+    public function getEpisode(int $number): Episode
     {
         return new Episode($number);
     }
 
-    public function getStarShip(int $id)
+    public function getStarShip(int $id): StarShip
     {
         $data = [
             3000 => [

@@ -1,15 +1,15 @@
 <?php
 
-namespace ObjectQuery\Test\Unit\Definition;
+namespace Cubicl\ObjectQuery\Tests\Unit\Definition;
 
-use ObjectQuery\Definition\Path;
-use ObjectQuery\DefinitionInterface;
+use Cubicl\ObjectQuery\Definition\Path;
+use Cubicl\ObjectQuery\DefinitionInterface;
 use PHPUnit\Framework\TestCase;
 
 /**
  * Class PathTest
  *
- * @package ObjectQuery\Test\Unit\Definition
+ * @package Cubicl\ObjectQuery\Tests\Unit\Definition
  * @author  Christian Blank <christian@cubicl.de>
  */
 class PathTest extends TestCase

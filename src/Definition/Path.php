@@ -1,24 +1,22 @@
 <?php
 
-namespace ObjectQuery\Definition;
+namespace Cubicl\ObjectQuery\Definition;
 
-use ObjectQuery\DefinitionInterface;
-use ObjectQuery\PredicateInterface;
-use ObjectQuery\Source\ArraySource;
-use ObjectQuery\SourceInterface;
-use ObjectQuery\TransformerInterface;
+use Cubicl\ObjectQuery\DefinitionInterface;
+use Cubicl\ObjectQuery\PredicateInterface;
+use Cubicl\ObjectQuery\Source\ArraySource;
+use Cubicl\ObjectQuery\SourceInterface;
+use Cubicl\ObjectQuery\TransformerInterface;
 
 /**
  * Immutable path object
  *
- * @package ObjectQuery\Definition
+ * @package Cubicl\ObjectQuery\Definition
  * @author  Christian Blank <christian@cubicl.de>
  */
 final class Path implements DefinitionInterface
 {
-    /**
-     * @var array
-     */
+    /**  @var array */
     private $operations = [];
 
     /**
@@ -43,11 +41,6 @@ final class Path implements DefinitionInterface
         return $step;
     }
 
-    /**
-     * @param string $property
-     *
-     * @return Path
-     */
     public function get(string $property): Path
     {
         $clone = clone $this;
@@ -56,11 +49,6 @@ final class Path implements DefinitionInterface
         return $clone;
     }
 
-    /**
-     * @param PredicateInterface $predicate
-     *
-     * @return Path
-     */
     public function filter(PredicateInterface $predicate): Path
     {
         $clone = clone $this;
@@ -69,11 +57,6 @@ final class Path implements DefinitionInterface
         return $clone;
     }
 
-    /**
-     * @param TransformerInterface $transformer
-     *
-     * @return Path
-     */
     public function transform(TransformerInterface $transformer): Path
     {
         $clone = clone $this;

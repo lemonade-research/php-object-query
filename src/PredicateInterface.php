@@ -1,11 +1,11 @@
 <?php
 
-namespace ObjectQuery;
+namespace Cubicl\ObjectQuery;
 
 /**
  * Interface PredicateInterface
  *
- * @package ObjectQuery
+ * @package Cubicl\ObjectQuery
  * @author  Christian Blank <christian@cubicl.de>
  */
 interface PredicateInterface

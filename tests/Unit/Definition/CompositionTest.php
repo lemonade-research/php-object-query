@@ -1,15 +1,15 @@
 <?php
 
-namespace ObjectQuery\Test\Unit\Definition;
+namespace Cubicl\ObjectQuery\Tests\Unit\Definition;
 
-use ObjectQuery\Definition\Composition;
-use ObjectQuery\DefinitionInterface;
+use Cubicl\ObjectQuery\Definition\Composition;
+use Cubicl\ObjectQuery\DefinitionInterface;
 use PHPUnit\Framework\TestCase;
 
 /**
  * Class CompositionTest
  *
- * @package ObjectQuery\Test\Unit\Definition
+ * @package Cubicl\ObjectQuery\Tests\Unit\Definition
  * @author  Christian Blank <christian@cubicl.de>
  */
 class CompositionTest extends TestCase
@@ -19,7 +19,8 @@ class CompositionTest extends TestCase
      */
     public function itCanBeConstructed(): void
     {
-        $actual = new Composition(function() {});
+        $actual = new Composition(function () {
+        });
 
         $this->assertInstanceOf(DefinitionInterface::class, $actual);
     }

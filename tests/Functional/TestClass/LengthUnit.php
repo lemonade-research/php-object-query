@@ -1,11 +1,11 @@
 <?php
 
-namespace ObjectQuery\Test\Functional\TestClass;
+namespace Cubicl\ObjectQuery\Tests\Functional\TestClass;
 
 /**
  * Class LengthUnit
  *
- * @package ObjectQuery\Test\Functional\TestClass
+ * @package Cubicl\ObjectQuery\Tests\Functional\TestClass
  * @author Christian Blank <christian@cubicl.de>
  */
 class LengthUnit
@@ -36,6 +36,4 @@ class LengthUnit
     {
         return $this->unit;
     }
-
-
 }

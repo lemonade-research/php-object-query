@@ -6,7 +6,7 @@
     "authors": [
         {
             "name": "Christian Blank",
-            "email": "1blankz7@googlemail.com"
+            "email": "christian@cubicl.de"
         }
     ],
     "require": {
@@ -14,27 +14,27 @@
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "^3.2",
-        "phpunit/phpunit": "^7.2",
-        "phpstan/phpstan": "^0.10.1"
+        "phpunit/phpunit": "^8.3",
+        "phpstan/phpstan": "^0.11.12"
     },
     "autoload": {
         "psr-4": {
-            "ObjectQuery\\": [
+            "Cubicl\\ObjectQuery\\": [
                 "src"
             ]
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "ObjectQuery\\Test\\": [
+            "Cubicl\\ObjectQuery\\Tests\\": [
                 "tests"
             ]
         }
     },
     "scripts": {
         "check": [
-            "phpcs",
-            "phpstan analyse --level 7 src",
+            "phpcs --standard=PSR12 src tests",
+            "phpstan analyse --level 7 src tests",
             "phpunit tests"
         ]
     }

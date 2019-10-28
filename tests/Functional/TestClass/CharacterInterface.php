@@ -1,20 +1,26 @@
 <?php
 
-namespace ObjectQuery\Test\Functional\TestClass;
+namespace Cubicl\ObjectQuery\Tests\Functional\TestClass;
 
 /**
  * Interface CharacterInterface
  *
- * @package ObjectQuery\Test\Functional\TestClass
+ * @package Cubicl\ObjectQuery\Tests\Functional\TestClass
  * @author Christian Blank <christian@cubicl.de>
  */
 interface CharacterInterface
 {
-    public function id();
+    public function id(): int;
 
-    public function name();
+    public function name(): string;
 
-    public function friends();
+    /**
+     * @return CharacterInterface[]
+     */
+    public function friends(): array;
 
-    public function appearsIn();
+    /**
+     * @return Episode[]
+     */
+    public function appearsIn(): array;
 }

@@ -1,19 +1,13 @@
 <?php
 
-namespace ObjectQuery;
+namespace Cubicl\ObjectQuery;
 
 /**
  * Interface QueryResolverInterface
- * @package ObjectQuery
+ * @package Cubicl\ObjectQuery
  * @author Christian Blank <christian@cubicl.de>
  */
 interface QueryResolverInterface
 {
-    /**
-     *
-     * @param array|object $context
-     *
-     * @return array
-     */
-    public function resolveArray($context): array;
+    public function resolve(SourceInterface $source): array;
 }
