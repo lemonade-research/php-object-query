@@ -1,27 +1,17 @@
 <?php
 
-namespace Cubicl\ObjectQuery\Definition;
+namespace Lemonade\ObjectQuery\Definition;
 
-use Cubicl\ObjectQuery\DefinitionInterface;
-use Cubicl\ObjectQuery\SourceInterface;
+use Lemonade\ObjectQuery\DefinitionInterface;
+use Lemonade\ObjectQuery\SourceInterface;
 
-/**
- * Class Value
- *
- * @package Cubicl\ObjectQuery\Definition
- * @author  Christian Blank <christian@cubicl.de>
- */
 final class Value implements DefinitionInterface
 {
-    /** @var mixed */
-    private $value;
-
-    public function __construct($value)
+    public function __construct(private readonly mixed $value)
     {
-        $this->value = $value;
     }
 
-    public function getValue(SourceInterface $source)
+    public function getValue(SourceInterface $source): mixed
     {
         return $this->value;
     }

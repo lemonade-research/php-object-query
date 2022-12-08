@@ -1,33 +1,21 @@
 <?php
 
-namespace Cubicl\ObjectQuery;
+namespace Lemonade\ObjectQuery;
 
 use Throwable;
 
-/**
- * Class QueryResolver
- *
- * @package Cubicl\ObjectQuery
- * @author Christian Blank <christian@cubicl.de>
- */
 final class QueryResolver implements QueryResolverInterface
 {
     /** @var QueryInterface[] */
-    private $queries = [];
+    private array $queries;
 
-    /**
-     * @param QueryInterface ...$queries
-     */
     public function __construct(QueryInterface ...$queries)
     {
         $this->queries = $queries;
     }
 
     /**
-     * @param SourceInterface $source
-     *
-     * @return array
-     * @throws Throwable
+     * @return array<string, mixed>
      */
     public function resolve(SourceInterface $source): array
     {
@@ -35,10 +23,7 @@ final class QueryResolver implements QueryResolverInterface
     }
 
     /**
-     * @param SourceInterface $source
-     *
-     * @return array
-     * @throws Throwable
+     * @return array<string, mixed>
      */
     private function map(SourceInterface $source): array
     {

@@ -1,24 +1,21 @@
 <?php
 
-namespace Cubicl\ObjectQuery;
+namespace Lemonade\ObjectQuery;
 
-/**
- * Interface SourceInterface
- *
- * @package Cubicl\ObjectQuery
- * @author  Christian Blank <christian@cubicl.de>
- */
 interface SourceInterface
 {
     public function has(string $field): bool;
 
     /**
      * @param string $field
-     * @param mixed  $default
+     * @param mixed|null $default
      *
      * @return SourceInterface|mixed
      */
-    public function get(string $field, $default = null);
+    public function get(string $field, mixed $default = null): mixed;
 
-    public function getSource();
+    /**
+     * @return array<mixed>|object
+     */
+    public function getSource(): array|object;
 }

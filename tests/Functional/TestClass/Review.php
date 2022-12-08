@@ -1,13 +1,7 @@
 <?php
 
-namespace Cubicl\ObjectQuery\Tests\Functional\TestClass;
+namespace Lemonade\ObjectQuery\Tests\Functional\TestClass;
 
-/**
- * Class Review
- *
- * @package Cubicl\ObjectQuery\Tests\Functional\TestClass
- * @author Christian Blank <christian@cubicl.de>
- */
 class Review
 {
     /**

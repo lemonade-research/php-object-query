@@ -1,9 +1,9 @@
 <?php
 
-namespace Cubicl\ObjectQuery\Tests\Unit\Definition;
+namespace Lemonade\ObjectQuery\Tests\Unit\Definition;
 
-use Cubicl\ObjectQuery\Definition\Composition;
-use Cubicl\ObjectQuery\DefinitionInterface;
+use Lemonade\ObjectQuery\Definition\Composition;
+use Lemonade\ObjectQuery\DefinitionInterface;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -19,8 +19,7 @@ class CompositionTest extends TestCase
      */
     public function itCanBeConstructed(): void
     {
-        $actual = new Composition(function () {
-        });
+        $actual = new Composition(fn() => []);
 
         $this->assertInstanceOf(DefinitionInterface::class, $actual);
     }

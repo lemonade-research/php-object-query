@@ -1,32 +1,18 @@
 <?php
 
-namespace Cubicl\ObjectQuery\Definition;
+namespace Lemonade\ObjectQuery\Definition;
 
-use Cubicl\ObjectQuery\DefinitionInterface;
-use Cubicl\ObjectQuery\SourceInterface;
+use Closure;
+use Lemonade\ObjectQuery\DefinitionInterface;
+use Lemonade\ObjectQuery\SourceInterface;
 
-/**
- * Class Composition
- *
- * @package Cubicl\ObjectQuery\Definition
- * @author  Christian Blank <christian@cubicl.de>
- */
 final class Composition implements DefinitionInterface
 {
-    /** @var callable */
-    private $compositor;
-
-    public function __construct(callable $compositor)
+    public function __construct(private readonly Closure $compositor)
     {
-        $this->compositor = $compositor;
     }
 
-    /**
-     * @param SourceInterface $source
-     *
-     * @return mixed
-     */
-    public function getValue(SourceInterface $source)
+    public function getValue(SourceInterface $source): mixed
     {
         return call_user_func($this->compositor, $source);
     }

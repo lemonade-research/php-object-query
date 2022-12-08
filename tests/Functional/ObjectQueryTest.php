@@ -1,32 +1,23 @@
 <?php
 
-namespace Cubicl\ObjectQuery\Tests\Functional;
+namespace Lemonade\ObjectQuery\Tests\Functional;
 
-use Cubicl\ObjectQuery\Definition\Composition;
-use Cubicl\ObjectQuery\Definition\Path;
-use Cubicl\ObjectQuery\Definition\Value;
-use Cubicl\ObjectQuery\Query\Query;
-use Cubicl\ObjectQuery\QueryResolver;
-use Cubicl\ObjectQuery\Source\ArraySource;
-use Cubicl\ObjectQuery\Source\ObjectSource;
-use Cubicl\ObjectQuery\Tests\Functional\TestClass\DataBuilder;
-use Cubicl\ObjectQuery\Tests\Functional\TestClass\Episode;
-use Cubicl\ObjectQuery\Tests\Functional\TestClass\EpisodeFilter;
-use Cubicl\ObjectQuery\Tests\Functional\TestClass\IdTransformer;
+use Lemonade\ObjectQuery\Definition\Composition;
+use Lemonade\ObjectQuery\Definition\Path;
+use Lemonade\ObjectQuery\Definition\Value;
+use Lemonade\ObjectQuery\Query\Query;
+use Lemonade\ObjectQuery\QueryResolver;
+use Lemonade\ObjectQuery\Source\ArraySource;
+use Lemonade\ObjectQuery\Source\ObjectSource;
+use Lemonade\ObjectQuery\Tests\Functional\TestClass\DataBuilder;
+use Lemonade\ObjectQuery\Tests\Functional\TestClass\Episode;
+use Lemonade\ObjectQuery\Tests\Functional\TestClass\EpisodeFilter;
+use Lemonade\ObjectQuery\Tests\Functional\TestClass\IdTransformer;
 use PHPUnit\Framework\TestCase;
 
-/**
- * Class ObjectQueryTest
- *
- * @package Cubicl\ObjectQuery\Tests\Functional
- * @author  Christian Blank <christian@cubicl.de>
- */
 class ObjectQueryTest extends TestCase
 {
-    /**
-     * @var DataBuilder
-     */
-    private $dataBuilder;
+    private DataBuilder $dataBuilder;
 
     protected function setUp(): void
     {

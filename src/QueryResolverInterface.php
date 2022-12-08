@@ -1,13 +1,11 @@
 <?php
 
-namespace Cubicl\ObjectQuery;
+namespace Lemonade\ObjectQuery;
 
-/**
- * Interface QueryResolverInterface
- * @package Cubicl\ObjectQuery
- * @author Christian Blank <christian@cubicl.de>
- */
 interface QueryResolverInterface
 {
+    /**
+     * @return array<string, mixed>
+     */
     public function resolve(SourceInterface $source): array;
 }

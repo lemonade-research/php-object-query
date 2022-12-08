@@ -1,9 +1,9 @@
 <?php
 
-namespace Cubicl\ObjectQuery\Tests\Unit\Definition;
+namespace Lemonade\ObjectQuery\Tests\Unit\Definition;
 
-use Cubicl\ObjectQuery\Definition\Path;
-use Cubicl\ObjectQuery\DefinitionInterface;
+use Lemonade\ObjectQuery\Definition\Path;
+use Lemonade\ObjectQuery\DefinitionInterface;
 use PHPUnit\Framework\TestCase;
 
 /**

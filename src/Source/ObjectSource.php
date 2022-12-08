@@ -1,32 +1,17 @@
 <?php
 
-namespace Cubicl\ObjectQuery\Source;
+namespace Lemonade\ObjectQuery\Source;
 
-use Cubicl\ObjectQuery\SourceInterface;
-use InvalidArgumentException;
+use Lemonade\ObjectQuery\SourceInterface;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\PropertyAccess\PropertyAccessor;
 
-/**
- * Class ObjectSource
- *
- * @package Cubicl\ObjectQuery\Source
- * @author  Christian Blank <christian@cubicl.de>
- */
 final class ObjectSource implements SourceInterface
 {
-    /** @var object */
-    private $source;
+    private PropertyAccessor $propertyAccessor;
 
-    /** @var PropertyAccessor */
-    private $propertyAccessor;
-
-    public function __construct($source)
+    public function __construct(private readonly object $source)
     {
-        if (!is_object($source)) {
-            throw new InvalidArgumentException('Source must be an object');
-        }
-        $this->source = $source;
         $this->propertyAccessor = PropertyAccess::createPropertyAccessor();
     }
 
@@ -37,11 +22,11 @@ final class ObjectSource implements SourceInterface
 
     /**
      * @param string $field
-     * @param mixed  $default
+     * @param mixed|null $default
      *
      * @return SourceInterface|mixed
      */
-    public function get(string $field, $default = null)
+    public function get(string $field, mixed $default = null): mixed
     {
         if (!$this->has($field)) {
             return $default;
@@ -64,7 +49,7 @@ final class ObjectSource implements SourceInterface
         return null;
     }
 
-    public function getSource()
+    public function getSource(): object
     {
         return $this->source;
     }

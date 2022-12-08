@@ -1,13 +1,7 @@
 <?php
 
-namespace Cubicl\ObjectQuery;
+namespace Lemonade\ObjectQuery;
 
-/**
- * Interface TransformerInterface
- *
- * @package Cubicl\ObjectQuery
- * @author  Christian Blank <christian@cubicl.de>
- */
 interface TransformerInterface
 {
     /**
@@ -15,5 +9,5 @@ interface TransformerInterface
      *
      * @return mixed
      */
-    public function transform($value);
+    public function transform(mixed $value): mixed;
 }

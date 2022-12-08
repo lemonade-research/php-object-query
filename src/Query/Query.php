@@ -1,9 +1,9 @@
 <?php
 
-namespace Cubicl\ObjectQuery\Query;
+namespace Lemonade\ObjectQuery\Query;
 
-use Cubicl\ObjectQuery\DefinitionInterface;
-use Cubicl\ObjectQuery\QueryInterface;
+use Lemonade\ObjectQuery\DefinitionInterface;
+use Lemonade\ObjectQuery\QueryInterface;
 
 /**
  * Class Query

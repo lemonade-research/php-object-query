@@ -1,39 +1,33 @@
 <?php
 
-namespace Cubicl\ObjectQuery\Tests\Functional\TestClass;
+namespace Lemonade\ObjectQuery\Tests\Functional\TestClass;
 
-/**
- * Class Droid
- *
- * @package Cubicl\ObjectQuery\Tests\Functional\TestClass
- * @author Christian Blank <christian@cubicl.de>
- */
 class Droid implements CharacterInterface
 {
     /**
      * @var int
      */
-    private $id;
+    private int $id;
 
     /**
      * @var int[]
      */
-    private $friends;
+    private array $friends;
 
     /**
      * @var string
      */
-    private $name;
+    private string $name;
 
     /**
      * @var Episode[]
      */
-    private $appearsIn;
+    private array $appearsIn;
 
     /**
      * @var string
      */
-    private $primaryFunction;
+    private string $primaryFunction;
 
     /**
      * Droid constructor.

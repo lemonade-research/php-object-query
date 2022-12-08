@@ -1,16 +1,11 @@
 <?php
 
-namespace Cubicl\ObjectQuery\Tests\Unit;
+namespace Lemonade\ObjectQuery\Tests\Unit;
 
-use Cubicl\ObjectQuery\QueryResolver;
-use Cubicl\ObjectQuery\QueryResolverInterface;
+use Lemonade\ObjectQuery\QueryResolver;
+use Lemonade\ObjectQuery\QueryResolverInterface;
 use PHPUnit\Framework\TestCase;
 
-/**
- * Class QueryResolverTest
- * @package Cubicl\ObjectQuery\Tests\Unit
- * @author Christian Blank <christian@cubicl.de>
- */
 class QueryResolverTest extends TestCase
 {
     /**

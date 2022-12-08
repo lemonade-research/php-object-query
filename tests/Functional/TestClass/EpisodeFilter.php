@@ -1,15 +1,9 @@
 <?php
 
-namespace Cubicl\ObjectQuery\Tests\Functional\TestClass;
+namespace Lemonade\ObjectQuery\Tests\Functional\TestClass;
 
-use Cubicl\ObjectQuery\PredicateInterface;
+use Lemonade\ObjectQuery\PredicateInterface;
 
-/**
- * Class IdFilter
- *
- * @package Cubicl\ObjectQuery\Tests\Functional\TestClass
- * @author  Christian Blank <christian@cubicl.de>
- */
 class EpisodeFilter implements PredicateInterface
 {
     /**
@@ -32,7 +26,7 @@ class EpisodeFilter implements PredicateInterface
      *
      * @return bool
      */
-    public function __invoke($object): bool
+    public function __invoke(object $object): bool
     {
         return $object->getEpisode() <= $this->threshold;
     }

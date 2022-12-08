@@ -1,30 +1,19 @@
 <?php
 
-namespace Cubicl\ObjectQuery\Definition;
+namespace Lemonade\ObjectQuery\Definition;
 
-use Cubicl\ObjectQuery\DefinitionInterface;
-use Cubicl\ObjectQuery\PredicateInterface;
-use Cubicl\ObjectQuery\Source\ArraySource;
-use Cubicl\ObjectQuery\SourceInterface;
-use Cubicl\ObjectQuery\TransformerInterface;
+use Lemonade\ObjectQuery\DefinitionInterface;
+use Lemonade\ObjectQuery\PredicateInterface;
+use Lemonade\ObjectQuery\Source\ArraySource;
+use Lemonade\ObjectQuery\SourceInterface;
+use Lemonade\ObjectQuery\TransformerInterface;
 
-/**
- * Immutable path object
- *
- * @package Cubicl\ObjectQuery\Definition
- * @author  Christian Blank <christian@cubicl.de>
- */
 final class Path implements DefinitionInterface
 {
-    /**  @var array */
-    private $operations = [];
+    /** @var array<PredicateInterface|TransformerInterface|string>  */
+    private array $operations = [];
 
-    /**
-     * @param SourceInterface $source
-     *
-     * @return mixed
-     */
-    public function getValue(SourceInterface $source)
+    public function getValue(SourceInterface $source): mixed
     {
         $step = $source;
 
