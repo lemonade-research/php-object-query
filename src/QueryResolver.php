@@ -2,6 +2,7 @@
 
 namespace Lemonade\ObjectQuery;
 
+use Lemonade\ObjectQuery\Definition\UnresolvedValue;
 use Throwable;
 
 final class QueryResolver implements QueryResolverInterface
@@ -31,10 +32,16 @@ final class QueryResolver implements QueryResolverInterface
 
         foreach ($this->queries as $query) {
             try {
-                $target[$query->getName()] = $query->getDefinition()->getValue($source);
+                $value = $query->getDefinition()->getValue($source);
             } catch (Throwable $e) {
                 throw $e;
             }
+
+            if ($value instanceof UnresolvedValue) {
+                continue;
+            }
+
+            $target[$query->getName()] = $value;
         }
 
         return $target;

@@ -90,3 +90,24 @@ $resolver = new QueryResolver(new Query('episodes', $path));
 $resolver->resolveArray($someObject);
 // ['episode' => [1, 2]]
 ```
+
+#### Optional fields
+
+By default, a `Path` throws an `UnresolvablePathException` if it cannot resolve a
+property anywhere along the chain. Mark it as `optional()` to instead omit the
+corresponding key from the result set entirely.
+
+```php
+<?php
+
+use Lemonade\ObjectQuery\Query\Query;
+use Lemonade\ObjectQuery\QueryResolver;
+use Lemonade\ObjectQuery\Definition\Path;
+
+$resolver = new QueryResolver(
+    new Query('pilotName', (new Path())->get('pilot')->get('name')->optional())
+);
+
+$resolver->resolve($someShipWithoutAPilot);
+// [] -- 'pilotName' is not present in the result set
+```

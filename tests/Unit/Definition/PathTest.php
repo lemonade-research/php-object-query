@@ -23,4 +23,17 @@ class PathTest extends TestCase
 
         $this->assertInstanceOf(DefinitionInterface::class, $actual);
     }
+
+    /**
+     * @test
+     */
+    public function optionalReturnsANewInstance(): void
+    {
+        $path = new Path();
+
+        $actual = $path->optional();
+
+        $this->assertInstanceOf(Path::class, $actual);
+        $this->assertNotSame($path, $actual);
+    }
 }
