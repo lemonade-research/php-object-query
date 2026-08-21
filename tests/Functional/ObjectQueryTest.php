@@ -5,6 +5,7 @@ namespace Lemonade\ObjectQuery\Tests\Functional;
 use Lemonade\ObjectQuery\Definition\Composition;
 use Lemonade\ObjectQuery\Definition\Path;
 use Lemonade\ObjectQuery\Definition\Value;
+use Lemonade\ObjectQuery\Exception\UnresolvablePathException;
 use Lemonade\ObjectQuery\Query\Query;
 use Lemonade\ObjectQuery\QueryResolver;
 use Lemonade\ObjectQuery\Source\ArraySource;
@@ -141,5 +142,34 @@ class ObjectQueryTest extends TestCase
         $result = $resolver->resolve(new ObjectSource($this->dataBuilder->getCharacter(1000)));
 
         $this->assertSame(['episodes' => [1, 2]], $result);
+    }
+
+    /**
+     * @test
+     */
+    public function itShouldThrowWhenAFieldIsNotResolvable(): void
+    {
+        $resolver = new QueryResolver(
+            new Query('pilotName', (new Path())->get('pilot')->get('name'))
+        );
+
+        $this->expectException(UnresolvablePathException::class);
+
+        $resolver->resolve(new ObjectSource($this->dataBuilder->getStarShip(3000)));
+    }
+
+    /**
+     * @test
+     */
+    public function itShouldOmitAnOptionalFieldWhenItIsNotResolvable(): void
+    {
+        $resolver = new QueryResolver(
+            new Query('name', (new Path())->get('name')),
+            new Query('pilotName', (new Path())->get('pilot')->get('name')->optional())
+        );
+
+        $result = $resolver->resolve(new ObjectSource($this->dataBuilder->getStarShip(3000)));
+
+        $this->assertSame(['name' => 'Millenium Falcon'], $result);
     }
 }
