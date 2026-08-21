@@ -133,3 +133,48 @@ $resolver = new QueryResolver(
 $resolver->resolve($someShipWithoutAPilot);
 // ['pilotName' => 'Unknown pilot']
 ```
+
+### Nested
+
+The `Nested` definition lets you return nested data structures instead of a
+flat associative array. It navigates to a sub-source using any other
+definition (typically a `Path`) and then applies its own set of queries to
+it.
+
+If the navigation resolves to a single object, `Nested` returns a nested
+associative array. If it resolves to a collection, `Nested` applies its
+queries to every entry and returns a list of nested associative arrays.
+`Nested` definitions can be combined to build arbitrarily deep structures.
+
+```php
+<?php
+
+use Lemonade\ObjectQuery\Query\Query;
+use Lemonade\ObjectQuery\QueryResolver;
+use Lemonade\ObjectQuery\Definition\Nested;
+use Lemonade\ObjectQuery\Definition\Path;
+
+$resolver = new QueryResolver(
+    new Query('name', (new Path())->get('name')),
+    new Query('pilot', new Nested(
+        (new Path())->get('pilot'),
+        new Query('name', (new Path())->get('name')),
+        new Query('id', (new Path())->get('id'))
+    )),
+    new Query('starShips', new Nested(
+        (new Path())->get('starShips'),
+        new Query('name', (new Path())->get('name'))
+    ))
+);
+
+$resolver->resolve($someCharacter);
+// [
+//     'name' => 'Han Solo',
+//     'pilot' => ['name' => 'Han Solo', 'id' => 1002],
+//     'starShips' => [['name' => 'Millenium Falcon'], ['name' => 'Imperial shuttle']],
+// ]
+```
+
+If the navigation definition is `optional()` and cannot be resolved, the
+`Nested` definition behaves like any other and the corresponding key is
+omitted from the result set.
