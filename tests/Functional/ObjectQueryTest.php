@@ -172,4 +172,33 @@ class ObjectQueryTest extends TestCase
 
         $this->assertSame(['name' => 'Millenium Falcon'], $result);
     }
+
+    /**
+     * @test
+     */
+    public function itShouldUseTheDefaultValueWhenAFieldIsNotResolvable(): void
+    {
+        $resolver = new QueryResolver(
+            new Query('name', (new Path())->get('name')),
+            new Query('pilotName', (new Path())->get('pilot')->get('name')->default('Unknown pilot'))
+        );
+
+        $result = $resolver->resolve(new ObjectSource($this->dataBuilder->getStarShip(3000)));
+
+        $this->assertSame(['name' => 'Millenium Falcon', 'pilotName' => 'Unknown pilot'], $result);
+    }
+
+    /**
+     * @test
+     */
+    public function itShouldPreferTheDefaultValueOverOptionalWhenBothAreSet(): void
+    {
+        $resolver = new QueryResolver(
+            new Query('pilotName', (new Path())->get('pilot')->get('name')->optional()->default('Unknown pilot'))
+        );
+
+        $result = $resolver->resolve(new ObjectSource($this->dataBuilder->getStarShip(3000)));
+
+        $this->assertSame(['pilotName' => 'Unknown pilot'], $result);
+    }
 }

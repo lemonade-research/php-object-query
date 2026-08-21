@@ -36,4 +36,17 @@ class PathTest extends TestCase
         $this->assertInstanceOf(Path::class, $actual);
         $this->assertNotSame($path, $actual);
     }
+
+    /**
+     * @test
+     */
+    public function defaultReturnsANewInstance(): void
+    {
+        $path = new Path();
+
+        $actual = $path->default('fallback');
+
+        $this->assertInstanceOf(Path::class, $actual);
+        $this->assertNotSame($path, $actual);
+    }
 }

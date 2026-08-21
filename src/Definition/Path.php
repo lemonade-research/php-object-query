@@ -17,11 +17,19 @@ final class Path implements DefinitionInterface
 
     private bool $optional = false;
 
+    private bool $hasDefault = false;
+
+    private mixed $default = null;
+
     public function getValue(SourceInterface $source): mixed
     {
         try {
             return $this->resolve($source);
         } catch (Throwable $e) {
+            if ($this->hasDefault) {
+                return $this->default;
+            }
+
             if ($this->optional) {
                 return UnresolvedValue::instance();
             }
@@ -63,6 +71,21 @@ final class Path implements DefinitionInterface
     {
         $clone = clone $this;
         $clone->optional = true;
+
+        return $clone;
+    }
+
+    /**
+     * Provides a fallback value to use when the path cannot be resolved
+     * (e.g. a property is missing anywhere along the way), instead of
+     * throwing or omitting the key from the result set. Takes precedence
+     * over optional().
+     */
+    public function default(mixed $value): Path
+    {
+        $clone = clone $this;
+        $clone->hasDefault = true;
+        $clone->default = $value;
 
         return $clone;
     }
