@@ -111,3 +111,25 @@ $resolver = new QueryResolver(
 $resolver->resolve($someShipWithoutAPilot);
 // [] -- 'pilotName' is not present in the result set
 ```
+
+#### Default values
+
+Instead of omitting an unresolvable field, you can use `default()` to fall back to a
+given value. This is useful when you always want the key present in the result set,
+even if the underlying data is missing. `default()` takes precedence over `optional()`
+if both are set.
+
+```php
+<?php
+
+use Lemonade\ObjectQuery\Query\Query;
+use Lemonade\ObjectQuery\QueryResolver;
+use Lemonade\ObjectQuery\Definition\Path;
+
+$resolver = new QueryResolver(
+    new Query('pilotName', (new Path())->get('pilot')->get('name')->default('Unknown pilot'))
+);
+
+$resolver->resolve($someShipWithoutAPilot);
+// ['pilotName' => 'Unknown pilot']
+```
